@@ -12,7 +12,9 @@ public class GUIClientesImp extends GUIClientes {
     private JPanel panel; // Variable de instancia para el panel principal
     private Controlador controlador; // Agregar referencia al controlador
 
-    public GUIClientesImp() {
+    public GUIClientesImp(Controlador controlador) {
+        this.controlador = controlador;
+
         // Crear la ventana principal
         loginFrame = new JFrame("SMOOTHIES");
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -163,55 +165,13 @@ public class GUIClientesImp extends GUIClientes {
     @Override
     public void actualizar(int evento, Object datos) {
         switch (evento) {
-        case (Eventos.CLIENTES_LIMPIAR): {
-            campo3.setText(null);
-            campo4.setText(null);
-            //marco.setVisible(false);
+        case (Eventos.AÑADIR_CLIENTE): {
+            
             break;
         }
-        case (Eventos.CLIENTE_REGISTRADO): {
-            JFrame frame = new JFrame("Menú");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            // Centrar el frame en la pantalla
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            int screenWidth = screenSize.width;
-            int screenHeight = screenSize.height;
-            int frameWidth = 300;
-            int frameHeight = 150;
-            int x = (screenWidth - frameWidth) / 2;
-            int y = (screenHeight - frameHeight) / 2;
-            frame.setBounds(x, y, frameWidth, frameHeight);
-
-            frame.setLayout(new BorderLayout());
-
-            JPanel panelBotones = new JPanel();
-            panelBotones.setLayout(new GridLayout(3, 1));
-
-            JButton botonReservas = new JButton("Reservas");
-            botonReservas.addActionListener(e -> {
-                GUIReservas.getInstancia();
-                frame.dispose(); // Cerrar la ventana actual
-            });
-            panelBotones.add(botonReservas);
-
-            JButton botonGaraje = new JButton("Garaje");
-            botonGaraje.addActionListener(e -> {
-                //GUIGaraje.getInstancia();
-                frame.dispose(); // Cerrar la ventana actual
-            });
-            panelBotones.add(botonGaraje);
-
-            JButton botonChat = new JButton("Chat");
-            botonChat.addActionListener(e -> {
-                //GUIChat.getInstancia();
-                frame.dispose(); // Cerrar la ventana actual
-            });
-            panelBotones.add(botonChat);
-
-            frame.add(panelBotones, BorderLayout.CENTER);
-            frame.setVisible(true);
-            break;
+        case (Eventos.INICIAR_SESION):{
+        	
+        	break;
         }
     }
 

@@ -7,7 +7,7 @@ public abstract class Controlador {
 		if (instancia == null)
 			instancia = new ControladorImp();
 		return instancia;
-	} // Patr�n Singleton!!! hola que tal 
+	} // Patr�n Singleton!!!
 	
 	public abstract void accion(int evento, Object datos);
 
