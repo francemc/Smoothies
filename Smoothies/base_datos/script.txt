@@ -1,0 +1,48 @@
+Ejecutar esto en la base de datos para crear las tablas:
+
+-- Crear la tabla de ingredientes
+CREATE TABLE ingredientes (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(255),
+    calorias INT
+);
+
+-- Insertar datos en la tabla de ingredientes
+INSERT INTO ingredientes (id, nombre, calorias) VALUES
+(1, 'arándano', 57),
+(2, 'cereza', 50),
+(3, 'ciruela', 46),
+(4, 'frambuesa', 52),
+(5, 'fresa', 35),
+(6, 'granada', 83),
+(7, 'grosella', 63),
+(8, 'guayaba', 68),
+(9, 'higo', 74),
+(10, 'kiwi', 61),
+(11, 'limón', 29),
+(12, 'mandarina', 53),
+(13, 'mango', 110),
+(14, 'mangostán', 73),
+(15, 'manzana', 85),
+(16, 'melón', 64),
+(17, 'mora', 43),
+(18, 'naranja', 62),
+(19, 'papaya', 43),
+(20, 'pera', 57),
+(21, 'piña', 50),
+(22, 'platano', 110),
+(23, 'sandía', 30),
+(24, 'uva', 69);
+
+-- Crear la tabla de usuario
+CREATE TABLE usuario (
+    idUsuario INT PRIMARY KEY,
+    nombre VARCHAR(255),
+    correo VARCHAR(255),
+    password VARCHAR(255)
+);
+
+-- Insertar datos en la tabla de usuario
+INSERT INTO usuario (idUsuario, nombre, correo, password) VALUES
+(1, 'UsuarioPrueba', 'prueba@example.com', 'password123'),
+(655994, 'a', 'a', 'a');
