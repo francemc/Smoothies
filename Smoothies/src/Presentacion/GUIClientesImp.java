@@ -208,8 +208,7 @@ public class GUIClientesImp extends GUIClientes {
            // Agregar oyentes de evento a los botones principales del menú
            opcion1Button.addActionListener(e -> {
                // Lógica para la opción 1 del menú
-               JOptionPane.showMessageDialog(menuFrame, "Has seleccionado la Opción 1.");
-               
+               GUISmoothiesImp guiSmoothies = new GUISmoothiesImp(controlador);
                //GUI Para pedir batidos
            });
 

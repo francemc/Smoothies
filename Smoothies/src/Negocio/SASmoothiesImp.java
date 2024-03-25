@@ -2,18 +2,41 @@ package Negocio;
 
 import java.util.List;
 
+import Integracion.DAOSmoothies;
+import Integracion.FactoriaDAO;
+
 public class SASmoothiesImp implements SASmoothies {
 
 	@Override
 	public boolean buscarSmoothie(String nombre, int id) {
-		// TODO Auto-generated method stub
+		
+		DAOSmoothies daoSmoothies = (DAOSmoothies) FactoriaDAO.getInstancia().nuevoDAOSmoothies();
+		TransferSmoothies ok;
+		
+		try {
+			ok = daoSmoothies.buscarSmoothies(nombre, id);
+			if(ok !=null) {
+				return true;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return false;
 	}
 
 	@Override
 	public List<TransferSmoothies> listaSmoothies() {
-		// TODO Auto-generated method stub
-		return null;
+		DAOSmoothies daoSmoothies = (DAOSmoothies) FactoriaDAO.getInstancia().nuevoDAOSmoothies();
+		List<TransferSmoothies> listaSmoothies = null;
+		
+		try {
+			listaSmoothies = daoSmoothies.sacarListaSmoothies();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return listaSmoothies;
 	}
 
 }

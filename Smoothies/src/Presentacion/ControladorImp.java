@@ -9,7 +9,10 @@ import Negocio.FactoriaSA;
 import Negocio.SAClientes;
 import Negocio.SAProductos;
 import Negocio.SAProductosImp;
+import Negocio.SASmoothies;
+import Negocio.SASmoothiesImp;
 import Negocio.TransferProducto;
+import Negocio.TransferSmoothies;
 
 
 public class ControladorImp extends Controlador{
@@ -77,14 +80,21 @@ public class ControladorImp extends Controlador{
 		
 	}
 	
-	public List<TransferProducto> devolverLista(String producto){
+	@SuppressWarnings("unchecked")
+	public <T>List<T> devolverLista(String producto){
 		
 		if (producto == "ingredientes"){
 			SAProductos saProductos = new SAProductosImp();
 	        
 	        List<TransferProducto> listaIngredientes = saProductos.listaIngredientes();
 	        
-	        return listaIngredientes;
+	        return (List<T>) listaIngredientes;
+		}
+		else if(producto == "smoothies") {
+			SASmoothies saSmoothies = new SASmoothiesImp();
+			List<TransferSmoothies> listaSmoothies = saSmoothies.listaSmoothies();
+			
+			return (List<T>) listaSmoothies;
 		}
 		return null;
 	}

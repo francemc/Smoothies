@@ -14,5 +14,5 @@ public abstract class Controlador {
 	} // Patr�n Singleton!!!
 	
 	public abstract void accion(int evento, Object datos);
-	public abstract List<TransferProducto> devolverLista(String producto);
+	public abstract <T>List<T> devolverLista(String producto); //programación genérica
 }

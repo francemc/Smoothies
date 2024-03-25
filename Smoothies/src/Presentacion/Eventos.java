@@ -8,5 +8,7 @@ public class Eventos {
 	final static public int CAMPOS_VACIOS = 0;
 	final static public int CLIENTES_LIMPIAR = 0;
 	public static final int LISTA_INGREDIENTES = 4;
-
+	final static public int AÑADIR_SMOOTHIE_MENU = 5;
+	final static public int AÑADIR_SMOOTHIE_PERSONALIZADO = 6;
+	
 }
