@@ -12,7 +12,7 @@ public class DAOClientesImp implements DAOCliente{
 
 	@Override
 	public TransferCliente buscarCliente(String correo) {
-	    
+		TransferCliente tE = new TransferCliente() ; 
 	    String url = "jdbc:mysql://localhost:3306/smoothies";
 	    String usuario = "root";
 	    String contraseña2 = "contraseñaSQL";
@@ -27,7 +27,7 @@ public class DAOClientesImp implements DAOCliente{
 	            stmt.setString(1, correo);
 	            ResultSet rs = stmt.executeQuery();
 	            if (rs.next()) {
-	            	TransferCliente tE = new TransferCliente(rs.getString("idUsuario"),rs.getString("nombre"),rs.getString("correo"),rs.getString("password"));
+	            	tE = new TransferCliente(rs.getString("idUsuario"),rs.getString("nombre"),rs.getString("correo"),rs.getString("password"));
 	                return tE;
 	            } else {
 	                return null;
