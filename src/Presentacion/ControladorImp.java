@@ -1,18 +1,18 @@
-package presentacion;
+package Presentacion;
 
 import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import negocio.FactoriaSA;
-import negocio.SAClientes;
-import negocio.SAProductos;
-import negocio.SAProductosImp;
-import negocio.SASmoothies;
-import negocio.SASmoothiesImp;
-import negocio.TransferProducto;
-import negocio.TransferSmoothies;
+import Negocio.FactoriaSA;
+import Negocio.SAClientes;
+import Negocio.SAProductos;
+import Negocio.SAProductosImp;
+import Negocio.SASmoothies;
+import Negocio.SASmoothiesImp;
+import Negocio.TransferProducto;
+import Negocio.TransferSmoothies;
 
 
 public class ControladorImp extends Controlador{

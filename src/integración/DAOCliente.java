@@ -2,7 +2,7 @@ package integración;
 
 import java.security.NoSuchAlgorithmException;
 
-import negocio.TransferCliente;
+import Negocio.TransferCliente;
 
 
 public interface DAOCliente {

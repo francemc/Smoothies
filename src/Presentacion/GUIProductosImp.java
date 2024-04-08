@@ -1,8 +1,8 @@
-package presentacion;
+package Presentacion;
 
 import javax.swing.*;
 
-import negocio.TransferProducto;
+import Negocio.TransferProducto;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

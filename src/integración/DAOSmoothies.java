@@ -2,8 +2,8 @@ package integración;
 
 import java.util.List;
 
-import negocio.TransferProducto;
-import negocio.TransferSmoothies;
+import Negocio.TransferProducto;
+import Negocio.TransferSmoothies;
 
 public interface DAOSmoothies {
 

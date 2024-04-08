@@ -1,4 +1,4 @@
-package negocio;
+package Negocio;
 
 import java.security.NoSuchAlgorithmException;
 

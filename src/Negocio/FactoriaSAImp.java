@@ -1,4 +1,4 @@
-package negocio;
+package Negocio;
 
 
 public  class FactoriaSAImp extends FactoriaSA{

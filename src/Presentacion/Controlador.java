@@ -1,8 +1,8 @@
-package presentacion;
+package Presentacion;
 
 import java.util.List;
 
-import negocio.TransferProducto;
+import Negocio.TransferProducto;
 
 public abstract class Controlador {
 	private static Controlador instancia = null;

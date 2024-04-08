@@ -9,8 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import negocio.TransferProducto;
-import negocio.TransferSmoothies;
+import Negocio.TransferProducto;
+import Negocio.TransferSmoothies;
 
 public class DAOSmoothiesImp implements DAOSmoothies{
 

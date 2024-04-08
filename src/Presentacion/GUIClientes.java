@@ -1,4 +1,4 @@
-package presentacion;
+package Presentacion;
 
 public abstract class GUIClientes {
     private static GUIClientes instancia = null;
