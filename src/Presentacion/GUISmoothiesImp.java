@@ -8,11 +8,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+
 
 public class GUISmoothiesImp extends GUISmoothies {
 	
@@ -22,10 +22,10 @@ public class GUISmoothiesImp extends GUISmoothies {
 	private JButton atrasButton; // Botón de "Atrás" para acceso y registro
 	private JPanel currentPanel; // Para realizar un seguimiento del panel actual
 	private JPanel panel; // Variable de instancia para el panel principal
-	private Controlador controlador; // Agregar referencia al controlador
+	private Controlador cntr; // Agregar referencia al controlador
 
-	public GUISmoothiesImp(Controlador controlador) {
-		this.controlador = controlador;
+	public GUISmoothiesImp(Controlador cntr) {
+		this.cntr = cntr;
 
         // Crear la ventana principal
         loginFrame = new JFrame("SMOOTHIES");
@@ -109,7 +109,7 @@ public class GUISmoothiesImp extends GUISmoothies {
             datos.put("correo", correo);
             datos.put("contraseña", contraseña);
             datos.put("idUsuario", String.valueOf(idUsuario));
-            controlador.accion(Eventos.AÑADIR_CLIENTE, datos);
+            cntr.accion(Eventos.AÑADIR_CLIENTE, datos);
             
             
         });
@@ -164,7 +164,7 @@ public class GUISmoothiesImp extends GUISmoothies {
             HashMap<String, String> datos = new HashMap<>();
             datos.put("correo", correo);
             datos.put("contraseña", contraseña);
-            controlador.accion(Eventos.INICIAR_SESION, datos);
+            cntr.accion(Eventos.INICIAR_SESION, datos);
             
         });
 
@@ -179,11 +179,13 @@ public class GUISmoothiesImp extends GUISmoothies {
     public void actualizar(int evento, Object datos) {
         switch (evento) {
         case (Eventos.AÑADIR_CLIENTE): {
-            
+        
             break;
         }
         case (Eventos.CLIENTE_REGISTRADO):{
-        	GUIClientesImp guiClientes = new GUIClientesImp(controlador);
+        	GUIAdministradorImp guiAdmin = new GUIAdministradorImp(cntr);
+        	GUIClientesImp guiClientes = new GUIClientesImp(cntr);
+        
 
            break;          
         }

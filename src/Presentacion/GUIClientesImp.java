@@ -73,12 +73,16 @@ public class GUIClientesImp extends GUIClientes {
         // Crear botones adicionales para salir y para el carrito
         JButton salirButton = new JButton("Salir");
         JButton carritoButton = new JButton("Carrito");
+        JButton CuentaButton = new JButton("Cuenta") ; 
 
         // Agregar oyentes de evento a los botones adicionales
         salirButton.addActionListener(e -> {
             // Lógica para cerrar el programa al presionar el botón "Salir"
             System.exit(0);
         });
+        CuentaButton.addActionListener(e-> {
+        	GUICarritoImp guiCarrito = new GUICarritoImp(controlador) ;
+        }) ; 
 
         carritoButton.addActionListener(e -> {
             // Lógica para mostrar el carrito al presionar el botón "Carrito"
@@ -87,7 +91,9 @@ public class GUIClientesImp extends GUIClientes {
 
         // Agregar los botones adicionales al panel de botones adicionales
         additionalButtonsPanel.add(salirButton);
+        additionalButtonsPanel.add(CuentaButton) ; 
         additionalButtonsPanel.add(carritoButton);
+    
 
         // Agregar el panel de botones adicionales al panel del menú en la parte inferior
         menuPanel.add(additionalButtonsPanel, BorderLayout.SOUTH);
@@ -121,7 +127,7 @@ public class GUIClientesImp extends GUIClientes {
 
         loginFrame.getContentPane().add(accesoPanel, BorderLayout.SOUTH);
         loginFrame.revalidate();
-        loginFrame.repaint();
+        loginFrame.repaint();	
 
      // Dentro del método accion(Eventos.INICIAR_SESION, datos)
         accederButton.addActionListener(e -> {
