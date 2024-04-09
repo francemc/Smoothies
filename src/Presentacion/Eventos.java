@@ -10,5 +10,6 @@ public class Eventos {
 	public static final int LISTA_INGREDIENTES = 4;
 	final static public int AÑADIR_SMOOTHIE_MENU = 5;
 	final static public int AÑADIR_SMOOTHIE_PERSONALIZADO = 6;
+	public static final int ELIMINAR_CLIENTE = 7;
 	
 }

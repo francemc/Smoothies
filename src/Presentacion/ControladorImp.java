@@ -72,6 +72,21 @@ public class ControladorImp extends Controlador{
 			break;
 		}
 	
+		case (Eventos.ELIMINAR_CLIENTE):{
+			
+			HashMap<String, String> ids = (HashMap<String, String>) datos;
+			String correo = new String(ids.get("correo"));
+			String contraseña = new String(ids.get("contraseña"));
+			SAClientes saClientes = FactoriaSA.getInstancia().nuevoSAClientes();
+
+			if(saClientes.borrarCliente(correo, contraseña)) {
+				JOptionPane.showMessageDialog(null, "Usuario con exito");
+			}else {
+				JOptionPane.showMessageDialog(null, "Error al eliminar el usuario");
+
+			}
+			break;
+		}
 
 		default: {
 			break;

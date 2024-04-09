@@ -37,4 +37,16 @@ public class SAClientesImp implements SAClientes {
 		return false;
 		
 	}
+	
+	public boolean borrarCliente(String correo, String contraseña) {
+		DAOCliente daoCliente = (DAOCliente) FactoriaDAO.getInstancia().nuevoDAOClientes();
+		boolean ok = false;
+		try {
+			ok = daoCliente.eliminarCliente(correo, contraseña);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ok;	
+		
+	}
 }

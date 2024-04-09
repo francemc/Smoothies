@@ -8,5 +8,5 @@ import Negocio.TransferCliente;
 public interface DAOCliente {
 	public TransferCliente buscarCliente(String idCliente);
 	public boolean registrarCliente(String nombre, String correo, String contraseña, String idCliente) throws NoSuchAlgorithmException;
-	
+	public boolean eliminarCliente(String correo, String contraseña);
 }
