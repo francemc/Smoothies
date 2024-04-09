@@ -7,6 +7,6 @@ public class Main {
         Controlador controlador = Controlador.getInstancia(); 
 
         // Pasar el controlador al constructor de GUIClientesImp
-        GUIClientesImp clientesImp = new GUIClientesImp(controlador);
+        GUISmoothiesImp smoothiesImp = new GUISmoothiesImp(controlador);
     }
 }
