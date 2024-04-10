@@ -110,6 +110,7 @@ public class GUISmoothiesImp extends GUISmoothies {
             datos.put("contraseña", contraseña);
             datos.put("idUsuario", String.valueOf(idUsuario));
             cntr.accion(Eventos.AÑADIR_CLIENTE, datos);
+            cntr.accion(Eventos.INICIAR_SESION, datos) ; 
             
             
         });
@@ -179,11 +180,12 @@ public class GUISmoothiesImp extends GUISmoothies {
     public void actualizar(int evento, Object datos) {
         switch (evento) {
         case (Eventos.AÑADIR_CLIENTE): {
-        
+        	GUIClientesImp guiClientes = new GUIClientesImp(cntr);
             break;
         }
         case (Eventos.CLIENTE_REGISTRADO):{
-        	GUIAdministradorImp guiAdmin = new GUIAdministradorImp(cntr);
+        	//GUIAdministradorImp guiAdmin = new GUIAdministradorImp(cntr);
+        	
         	GUIClientesImp guiClientes = new GUIClientesImp(cntr);
         
 

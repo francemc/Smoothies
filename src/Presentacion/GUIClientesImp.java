@@ -105,62 +105,13 @@ public class GUIClientesImp extends GUIClientes {
         menuFrame.setVisible(true);
     }
 
-    private void mostrarPanelAcceso() {
-        // Ocultar el panel actual
-        currentPanel.setVisible(false);
+   
 
-        // Mostrar el nuevo panel para el acceso
-        JPanel accesoPanel = new JPanel(new GridLayout(4, 2));
-        JTextField correoField = new JTextField(20);
-        JPasswordField contraseñaField = new JPasswordField(20);
-        JButton accederButton = new JButton("Acceder");
-        atrasButton = new JButton("Atrás"); // Añadir botón "Atrás" al panel de acceso
-
-        accesoPanel.add(new JLabel("Correo:"));
-        accesoPanel.add(correoField);
-        accesoPanel.add(new JLabel("Contraseña:"));
-        accesoPanel.add(contraseñaField);
-        accesoPanel.add(new JLabel());
-        accesoPanel.add(accederButton);
-        accesoPanel.add(new JLabel());
-        accesoPanel.add(atrasButton); // Agregar botón "Atrás" al panel de acceso
-
-        loginFrame.getContentPane().add(accesoPanel, BorderLayout.SOUTH);
-        loginFrame.revalidate();
-        loginFrame.repaint();	
-
-     // Dentro del método accion(Eventos.INICIAR_SESION, datos)
-        accederButton.addActionListener(e -> {
-            // Lógica para el botón de Acceder
-            String correo = correoField.getText();
-            String contraseña = new String(contraseñaField.getPassword());
-
-            //AQUI SE IMPLEMENTA GUARDAR EN LA BASE DE DATOS
-            // Utilizar el controlador para iniciar sesión
-            HashMap<String, String> datos = new HashMap<>();
-            datos.put("correo", correo);
-            datos.put("contraseña", contraseña);
-            controlador.accion(Eventos.INICIAR_SESION, datos);
-            
-        });
-
-
-        // Agregar oyente de evento al botón de Atrás en el panel de acceso
-        atrasButton.addActionListener(e -> mostrarPanelAnterior());
-        // Actualizar el panel actual
-        currentPanel = accesoPanel;
-    }
-
-    private void mostrarPanelAnterior() {
-        // Ocultar el panel actual
-        currentPanel.setVisible(false);
-
-        // Mostrar el panel principal con los botones de acceso y registro
-        currentPanel = panel;
-        currentPanel.setVisible(true);
-    }
     @Override
     public void actualizar(int evento, Object datos) {
+    	if(evento== Eventos.INICIAR_SESION) {
+    		
+    	}
        
     }
 }

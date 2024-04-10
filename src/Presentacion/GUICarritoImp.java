@@ -1,9 +1,11 @@
 package Presentacion;
 
 public class GUICarritoImp extends GUICarrito{
+	private Controlador controlador;
 
 	public GUICarritoImp(Controlador controlador) {
-		// TODO Auto-generated constructor stub
+		this.controlador =controlador  ; 
+		
 	}
 
 	@Override

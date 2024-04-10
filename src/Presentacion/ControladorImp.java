@@ -22,7 +22,7 @@ public class ControladorImp extends Controlador{
 		switch (evento) {
 		case (Eventos.CAMPOS_VACIOS): {
 			JOptionPane.showMessageDialog(null, "Alg�n campo est� vacio");
-			GUIClientes.getInstancia(Controlador.getInstancia()).actualizar(Eventos.CLIENTES_LIMPIAR, null);
+			GUISmoothies.getInstancia(Controlador.getInstancia()).actualizar(Eventos.CLIENTES_LIMPIAR, null);
 		}
 		
 		
@@ -36,13 +36,13 @@ public class ControladorImp extends Controlador{
 			
 			SAClientes saClientes = FactoriaSA.getInstancia().nuevoSAClientes();
 			if(saClientes.crearUsuario(nombre, correo, contraseña, idUsuario)) {
-				JOptionPane.showMessageDialog(null,"Usuario creado correctamente");
+				JOptionPane.showMessageDialog(null,"Usuario creado correctamente \n      id : "+ idUsuario);
 				break;
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Error al crear el usuario");
 			}
-			GUIClientes.getInstancia(Controlador.getInstancia()).actualizar(Eventos.AÑADIR_CLIENTE, null);
+			GUISmoothies.getInstancia(Controlador.getInstancia()).actualizar(Eventos.AÑADIR_CLIENTE, null);
 		}
 		
 		
