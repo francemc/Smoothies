@@ -17,7 +17,7 @@ public class GUIMenuImp extends GUIMenu {
     private DefaultListModel<String> smoothiesListModel;
     private JList<String> smoothiesList;
 
-    public GUIMenuImp(Controlador controlador) {
+    public GUIMenuImp(Controlador controlador,Object datos) {
         this.controlador = controlador;
         this.listaSmoothies = new ArrayList<>();
         this.listaSmoothies = controlador.devolverLista("smoothies");
@@ -88,8 +88,7 @@ public class GUIMenuImp extends GUIMenu {
         cartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //  lógica para mostrar el carrito
-                JOptionPane.showMessageDialog(menuFrame, "Mostrar carrito");
+            	actualizar(Eventos.VER_CARRITO,datos);
             }
         });
         buttonPanel.add(cartButton);
@@ -111,7 +110,12 @@ public class GUIMenuImp extends GUIMenu {
 
     @Override
     public void actualizar(int evento, Object datos) {
-        // TODO Auto-generated method stub
+    	switch (evento) {
+    	case (Eventos.VER_CARRITO): {
+    		GUICarritoImp guiCarrito = new GUICarritoImp(controlador,datos); 		
+    	break;
+    	}
+    }
     }
 
     // Método para establecer la fuente de los componentes de un contenedor y sus subcomponentes

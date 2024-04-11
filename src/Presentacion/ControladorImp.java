@@ -87,10 +87,15 @@ public class ControladorImp extends Controlador{
 			}
 			break;
 		}
+		
+		case (Eventos.INICIAR_PEDIDO):{
+			
+		}
 
 		default: {
 			break;
 		}
+		
 		}
 		
 	}
@@ -113,18 +118,6 @@ public class ControladorImp extends Controlador{
 		}
 		return null;
 	}
-	
-	public String devolver_id(String objeto) {
-		
-		
-		
-		if(objeto == "idCliente") {
-			 
-		}
-		else if(objeto == "batido") {
-			
-		}
-		return null;
-	}
+
 
 }

@@ -2,6 +2,8 @@ package Presentacion;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.HashMap;
 
 public class GUIClientesImp extends GUIClientes {
@@ -46,10 +48,10 @@ public class GUIClientesImp extends GUIClientes {
         opcion2Button.setHorizontalTextPosition(SwingConstants.CENTER);
         opcion2Button.setVerticalTextPosition(SwingConstants.TOP);
 
-        // Agregar oyentes de evento a los botones principales del menú
+        
         opcion1Button.addActionListener(e -> {
-            // Lógica para la opción 1 del menú
-            GUIMenuImp guiMenu = new GUIMenuImp(controlador);
+
+        	GUIMenuImp guiMenu = new GUIMenuImp(controlador,datos);
             //GUI Para pedir batidos
         });
 
@@ -70,12 +72,10 @@ public class GUIClientesImp extends GUIClientes {
         // Crear un panel para contener los botones adicionales
         JPanel additionalButtonsPanel = new JPanel(new GridLayout(1, 2));
 
-        // Crear botones adicionales para salir y para el carrito
         JButton salirButton = new JButton("Salir");
         JButton carritoButton = new JButton("Carrito");
         JButton CuentaButton = new JButton("Cuenta") ; 
 
-        // Agregar oyentes de evento a los botones adicionales
         salirButton.addActionListener(e -> {
             // Lógica para cerrar el programa al presionar el botón "Salir"
             System.exit(0);
@@ -104,11 +104,11 @@ public class GUIClientesImp extends GUIClientes {
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.WARNING_MESSAGE);
 
-                // Verificar la respuesta del usuario
                 if (respuesta == JOptionPane.YES_OPTION) {
 
                 	controlador.accion(Eventos.ELIMINAR_CLIENTE,datos);
                     System.exit(0);
+                    
                 } else {
                     // El usuario ha cancelado la operación
                     JOptionPane.showMessageDialog(menuFrame, "Operación cancelada.");
@@ -129,8 +129,8 @@ public class GUIClientesImp extends GUIClientes {
 
 
         carritoButton.addActionListener(e -> {
-            // Lógica para mostrar el carrito al presionar el botón "Carrito"
-            JOptionPane.showMessageDialog(menuFrame, "Mostrar carrito.");
+        	
+        	actualizar(Eventos.VER_CARRITO, datos);
         });
 
         // Agregar los botones adicionales al panel de botones adicionales
@@ -153,9 +153,11 @@ public class GUIClientesImp extends GUIClientes {
 
     @Override
     public void actualizar(int evento, Object datos) {
-    	if(evento== Eventos.INICIAR_SESION) {
-    		
-    	}
-       
+    	switch (evento) {
+        	case (Eventos.VER_CARRITO): {
+        		GUICarritoImp guiCarrito = new GUICarritoImp(controlador,datos); 		
+        	break;
+        	}
+        }
     }
 }
