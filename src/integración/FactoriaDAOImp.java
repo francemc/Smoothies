@@ -16,4 +16,9 @@ public class FactoriaDAOImp extends FactoriaDAO {
 	public DAOSmoothies nuevoDAOSmoothies() {
 		return new DAOSmoothiesImp();
 	}
+
+	@Override
+	public DAOPedidos nuevoDAOPedidos() {
+		return new DAOPedidosImp();
+	}
 }

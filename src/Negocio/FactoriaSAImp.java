@@ -15,4 +15,11 @@ public  class FactoriaSAImp extends FactoriaSA{
 	public SASmoothies nuevoSASmoothies() {
 		return new SASmoothiesImp();
 	}
+
+	@Override
+	public SAPedidos nuevoSAPedidos() {
+		return new SAPedidosImp();
+	}
+	
+	
 }

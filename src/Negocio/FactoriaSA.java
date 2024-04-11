@@ -13,4 +13,5 @@ public abstract class FactoriaSA {
 	abstract public SAClientes nuevoSAClientes();
 	abstract public SAProductos nuevoSAProducto();
 	abstract public SASmoothies nuevoSASmoothies();
+	abstract public SAPedidos nuevoSAPedidos();
 }
