@@ -83,8 +83,21 @@ public class GUIClientesImp extends GUIClientes {
        
 
         CuentaButton.addActionListener(e -> {
-            // Crear un nuevo panel para las opciones de la cuenta
-            JPanel cuentaPanel = new JPanel(new GridLayout(2, 1));
+            // Crear un nuevo panel para las opciones de la cuenta con BorderLayout
+            JPanel cuentaPanel = new JPanel(new BorderLayout());
+
+            // Crear botón para volver atrás
+            JButton volverAtrasButton = new JButton("Volver Atrás");
+            volverAtrasButton.addActionListener(a -> {
+                // Remplazar el panel actual del menú con el panel de los botones principales
+                menuPanel.remove(cuentaPanel);
+                menuPanel.add(mainButtonsPanel, BorderLayout.CENTER);
+                menuPanel.revalidate();
+                menuPanel.repaint();
+            });
+
+            // Crear un panel para los botones de las opciones de la cuenta
+            JPanel botonesCuentaPanel = new JPanel(new GridLayout(2, 1));
 
             // Crear botones para las opciones de la cuenta
             JButton verPedidosButton = new JButton("Ver Pedidos");
@@ -105,20 +118,23 @@ public class GUIClientesImp extends GUIClientes {
                         JOptionPane.WARNING_MESSAGE);
 
                 if (respuesta == JOptionPane.YES_OPTION) {
-
-                	controlador.accion(Eventos.ELIMINAR_CLIENTE,datos);
-                    System.exit(0);
-                    
+                    controlador.accion(Eventos.ELIMINAR_CLIENTE,datos);
+                    System.exit(0);   
                 } else {
                     // El usuario ha cancelado la operación
                     JOptionPane.showMessageDialog(menuFrame, "Operación cancelada.");
                 }
             });
 
+            // Agregar los botones al panel de las opciones de la cuenta
+            botonesCuentaPanel.add(verPedidosButton);
+            botonesCuentaPanel.add(cerrarCuentaButton);
 
-            // Agregar los botones al panel de la cuenta
-            cuentaPanel.add(verPedidosButton);
-            cuentaPanel.add(cerrarCuentaButton);
+            // Agregar el panel de los botones de las opciones de la cuenta al panel de la cuenta en el centro
+            cuentaPanel.add(botonesCuentaPanel, BorderLayout.CENTER);
+
+            // Agregar el botón "Volver Atrás" al panel de la cuenta en la región sur
+            cuentaPanel.add(volverAtrasButton, BorderLayout.SOUTH);
 
             // Remplazar el panel actual del menú con el panel de la cuenta
             menuPanel.remove(mainButtonsPanel);
@@ -126,6 +142,8 @@ public class GUIClientesImp extends GUIClientes {
             menuPanel.revalidate();
             menuPanel.repaint();
         });
+
+
 
 
         carritoButton.addActionListener(e -> {
