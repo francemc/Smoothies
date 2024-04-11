@@ -13,7 +13,7 @@ public class GUIClientesImp extends GUIClientes {
 	private JPanel panel; // Variable de instancia para el panel principal
 	private Controlador controlador; // Agregar referencia al controlador
 
-    public GUIClientesImp(Controlador controlador) {
+    public GUIClientesImp(Controlador controlador,Object datos) {
         this.controlador = controlador;
 
         // Crear un nuevo JFrame para el menú
@@ -80,9 +80,53 @@ public class GUIClientesImp extends GUIClientes {
             // Lógica para cerrar el programa al presionar el botón "Salir"
             System.exit(0);
         });
-        CuentaButton.addActionListener(e-> {
-        	GUICarritoImp guiCarrito = new GUICarritoImp(controlador) ;
-        }) ; 
+       
+
+        CuentaButton.addActionListener(e -> {
+            // Crear un nuevo panel para las opciones de la cuenta
+            JPanel cuentaPanel = new JPanel(new GridLayout(2, 1));
+
+            // Crear botones para las opciones de la cuenta
+            JButton verPedidosButton = new JButton("Ver Pedidos");
+            JButton cerrarCuentaButton = new JButton("Cerrar Cuenta");
+
+            // Agregar oyentes de evento a los botones de la cuenta
+            verPedidosButton.addActionListener(e1 -> {
+                // Lógica para ver los pedidos del cliente
+                JOptionPane.showMessageDialog(menuFrame, "Ver Pedidos.");
+            });
+
+            cerrarCuentaButton.addActionListener(e2 -> {
+                // Mostrar una ventana de confirmación
+                int respuesta = JOptionPane.showConfirmDialog(menuFrame,
+                        "¿Estás seguro de que quieres cerrar tu cuenta?",
+                        "Confirmación",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE);
+
+                // Verificar la respuesta del usuario
+                if (respuesta == JOptionPane.YES_OPTION) {
+
+                	controlador.accion(Eventos.ELIMINAR_CLIENTE,datos);
+                    System.exit(0);
+                } else {
+                    // El usuario ha cancelado la operación
+                    JOptionPane.showMessageDialog(menuFrame, "Operación cancelada.");
+                }
+            });
+
+
+            // Agregar los botones al panel de la cuenta
+            cuentaPanel.add(verPedidosButton);
+            cuentaPanel.add(cerrarCuentaButton);
+
+            // Remplazar el panel actual del menú con el panel de la cuenta
+            menuPanel.remove(mainButtonsPanel);
+            menuPanel.add(cuentaPanel, BorderLayout.CENTER);
+            menuPanel.revalidate();
+            menuPanel.repaint();
+        });
+
 
         carritoButton.addActionListener(e -> {
             // Lógica para mostrar el carrito al presionar el botón "Carrito"

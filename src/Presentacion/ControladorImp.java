@@ -53,7 +53,7 @@ public class ControladorImp extends Controlador{
 			SAClientes saClientes = FactoriaSA.getInstancia().nuevoSAClientes();
 			if(saClientes.accesoCliente(correo, contraseña)) {
 				
-				GUIClientes.getInstancia(Controlador.getInstancia()).actualizar(Eventos.CLIENTE_REGISTRADO, datos);
+				GUIClientes.getInstancia(Controlador.getInstancia(), datos).actualizar(Eventos.CLIENTE_REGISTRADO, datos);
 				break;
 			}
 			else {
@@ -80,7 +80,7 @@ public class ControladorImp extends Controlador{
 			SAClientes saClientes = FactoriaSA.getInstancia().nuevoSAClientes();
 
 			if(saClientes.borrarCliente(correo, contraseña)) {
-				JOptionPane.showMessageDialog(null, "Usuario con exito");
+				JOptionPane.showMessageDialog(null, "Eliminado con exito");
 			}else {
 				JOptionPane.showMessageDialog(null, "Error al eliminar el usuario");
 
@@ -110,6 +110,19 @@ public class ControladorImp extends Controlador{
 			List<TransferSmoothies> listaSmoothies = saSmoothies.listaSmoothies();
 			
 			return (List<T>) listaSmoothies;
+		}
+		return null;
+	}
+	
+	public String devolver_id(String objeto) {
+		
+		
+		
+		if(objeto == "idCliente") {
+			 
+		}
+		else if(objeto == "batido") {
+			
 		}
 		return null;
 	}

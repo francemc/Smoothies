@@ -92,7 +92,7 @@ public class DAOClientesImp implements DAOCliente{
 	    String usuario = "root";
 	    String contraseña2 = "contraseñaSQL";
 	    
-	    if (tE == null) { // significa que el cliente no existe
+	    if (tE != null) { // significa que el cliente no existe
 	    	try {
 	            // Registrar el driver de MySQL
 	            Class.forName("com.mysql.cj.jdbc.Driver");
@@ -121,8 +121,7 @@ public class DAOClientesImp implements DAOCliente{
 	            e.printStackTrace();
 	        }
 	    }
-	    
-	    return false;
+		return false;
 	}
 
 }

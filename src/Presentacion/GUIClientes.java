@@ -2,10 +2,11 @@ package Presentacion;
 
 public abstract class GUIClientes {
     private static GUIClientes instancia = null;
-
-    public static GUIClientes getInstancia(Controlador controlador) {
+    private static Object datos = null;
+    
+    public static GUIClientes getInstancia(Controlador controlador, Object datos) {
         if (instancia == null)
-            instancia = new GUIClientesImp(controlador);
+            instancia = new GUIClientesImp(controlador, datos);
         return instancia;
     }
 
