@@ -89,7 +89,7 @@ public class ControladorImp extends Controlador{
 		}
 		
 		case (Eventos.INICIAR_PEDIDO):{
-			
+			break;
 		}
 
 		default: {
