@@ -1,16 +1,21 @@
 package Presentacion;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GUICarritoImp extends GUICarrito {
     private Controlador controlador;
     private JFrame carritoFrame;
     private JPanel panel;
     private JTextField totalField;
+    private JList<String> productosList;
+    private Pedido pedido;
 
     public GUICarritoImp(Controlador controlador, Object datos) {
         this.controlador = controlador;
-
+        this.pedido = Pedido.getInstancia();
+        
         // Crear un nuevo JFrame para la GUI del carrito
         carritoFrame = new JFrame("Carrito");
         carritoFrame.setSize(600, 400);
@@ -27,16 +32,32 @@ public class GUICarritoImp extends GUICarrito {
             carritoFrame.dispose();
         });
 
-        // Crear una caja de texto para mostrar los productos del carrito
-        JTextArea productosArea = new JTextArea();
-        productosArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(productosArea);
+        // Crear un modelo de lista para los productos
+        DefaultListModel<String> productosListModel = new DefaultListModel<>();
+        productosList = new JList<>(productosListModel);
+        productosList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane scrollPane = new JScrollPane(productosList);
+        scrollPane.setPreferredSize(new Dimension(200, 200));
+
+        // Mostrar cada producto en la lista
+        String productosStr = pedido.getBatidos();
+        String[] productos = productosStr.split(",");
+        for (String producto : productos) {
+            productosListModel.addElement(producto);
+        }
 
         // Crear un botón para eliminar un producto del carrito
         JButton eliminarButton = new JButton("Eliminar");
-        eliminarButton.addActionListener(e -> {
-            // Lógica para eliminar un producto del carrito
-            // Implementa la lógica según sea necesario
+        eliminarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedIndex = productosList.getSelectedIndex();
+                if (selectedIndex != -1) {
+                    productosListModel.remove(selectedIndex);
+                    
+                    pedido.eliminarProducto(productosListModel.elementAt(selectedIndex));
+                }
+            }
         });
 
         // Crear un JPanel para contener el botón de eliminar
@@ -75,8 +96,6 @@ public class GUICarritoImp extends GUICarrito {
 
     @Override
     public void actualizar(int evento, Object datos) {
-        
-    	
-    	
+        // Actualizar la GUI del carrito si es necesario
     }
 }

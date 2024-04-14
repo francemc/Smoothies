@@ -16,8 +16,11 @@ public class GUIMenuImp extends GUIMenu {
     private List<TransferSmoothies> listaSmoothies;
     private DefaultListModel<String> smoothiesListModel;
     private JList<String> smoothiesList;
+    private Pedido pedido;
+    private JComboBox<String> sizeComboBox; // Declaración del JComboBox
 
-    public GUIMenuImp(Controlador controlador,Object datos) {
+    public GUIMenuImp(Controlador controlador, Object datos) {
+        this.pedido = Pedido.getInstancia();
         this.controlador = controlador;
         this.listaSmoothies = new ArrayList<>();
         this.listaSmoothies = controlador.devolverLista("smoothies");
@@ -52,23 +55,37 @@ public class GUIMenuImp extends GUIMenu {
 
         // Panel para botones
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+
         JButton addToCartButton = new JButton("Añadir al carrito");
         addToCartButton.setPreferredSize(new Dimension(150, 40));
         addToCartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String selectedSmoothie = smoothiesList.getSelectedValue();
+                String selectedSize = (String) sizeComboBox.getSelectedItem();
+
                 if (selectedSmoothie != null) {
-                    // Aquí puedes añadir la lógica para agregar el batido seleccionado al carrito
-                    JOptionPane.showMessageDialog(menuFrame, "Batido '" + selectedSmoothie.split(" -> ")[0] + "' añadido al carrito.");
+                    // Aquí puedes añadir la lógica para agregar el smoothie seleccionado al carrito
+                    // Primero, necesitas obtener el ID del smoothie seleccionado
+                    int smoothieIndex = smoothiesList.getSelectedIndex();
+                    TransferSmoothies smoothie = listaSmoothies.get(smoothieIndex);
+                    int smoothieID = smoothie.getId(); // Suponiendo que TransferSmoothies tenga un método para obtener el ID
+
+                    // Crear el string que representa el producto en el carrito
+                    String producto = "0" + selectedSize + smoothieID; // Concatenar los valores para crear el producto
+
+                    // Luego, puedes llamar al método para agregar el smoothie al carrito
+                    pedido.agregarProducto(producto);
+
+                    JOptionPane.showMessageDialog(menuFrame, "Smoothie '" + smoothie.getNombre() + "' añadido al carrito.");
                 } else {
-                    JOptionPane.showMessageDialog(menuFrame, "Por favor, selecciona un batido primero.");
+                    JOptionPane.showMessageDialog(menuFrame, "Por favor, selecciona un smoothie primero.");
                 }
             }
         });
 
         JLabel sizeLabel = new JLabel("Tamaño:");
-        JComboBox<String> sizeComboBox = new JComboBox<>(new String[]{"Pequeño", "Mediano", "Grande"});
+        sizeComboBox = new JComboBox<>(new String[]{"Pequeño", "Mediano", "Grande"});
         sizeComboBox.setPreferredSize(new Dimension(100, 40));
         buttonPanel.add(sizeLabel);
         buttonPanel.add(sizeComboBox);
@@ -79,7 +96,7 @@ public class GUIMenuImp extends GUIMenu {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	menuFrame.dispose();
+                menuFrame.dispose();
             }
         });
         buttonPanel.add(backButton);
@@ -88,7 +105,7 @@ public class GUIMenuImp extends GUIMenu {
         cartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	actualizar(Eventos.VER_CARRITO,datos);
+                actualizar(Eventos.VER_CARRITO, datos);
             }
         });
         buttonPanel.add(cartButton);
@@ -110,12 +127,12 @@ public class GUIMenuImp extends GUIMenu {
 
     @Override
     public void actualizar(int evento, Object datos) {
-    	switch (evento) {
-    	case (Eventos.VER_CARRITO): {
-    		GUICarritoImp guiCarrito = new GUICarritoImp(controlador,datos); 		
-    	break;
-    	}
-    }
+        switch (evento) {
+            case (Eventos.VER_CARRITO): {
+                GUICarritoImp guiCarrito = new GUICarritoImp(controlador, datos);
+                break;
+            }
+        }
     }
 
     // Método para establecer la fuente de los componentes de un contenedor y sus subcomponentes

@@ -28,7 +28,7 @@ public class SAPedidosImp implements SAPedidos{
 	}
 
 	@Override
-	public List<TransferPedido> listaPedidos(int idUsuario) {
+	public List<TransferPedido> listaPedidos(String idUsuario) {
 		// TODO Auto-generated method stub
 		return null;
 	}

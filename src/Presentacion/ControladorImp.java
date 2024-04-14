@@ -7,10 +7,13 @@ import javax.swing.JOptionPane;
 
 import Negocio.FactoriaSA;
 import Negocio.SAClientes;
+import Negocio.SAPedidos;
+import Negocio.SAPedidosImp;
 import Negocio.SAProductos;
 import Negocio.SAProductosImp;
 import Negocio.SASmoothies;
 import Negocio.SASmoothiesImp;
+import Negocio.TransferPedido;
 import Negocio.TransferProducto;
 import Negocio.TransferSmoothies;
 
@@ -89,6 +92,9 @@ public class ControladorImp extends Controlador{
 		}
 		
 		case (Eventos.INICIAR_PEDIDO):{
+			HashMap<String, String> ids = (HashMap<String, String>) datos;
+			SAClientes saClientes = FactoriaSA.getInstancia().nuevoSAClientes();
+			
 			break;
 		}
 
@@ -116,7 +122,18 @@ public class ControladorImp extends Controlador{
 			
 			return (List<T>) listaSmoothies;
 		}
-		return null;
+		
+		else{ //ESTO ES UN APAÑO HABRÍA QUE BUSCAR OTRA FORMA // PRODUCTO --> ID_USUARIO
+			SAPedidos saPedidos = new SAPedidosImp();
+			List<TransferPedido> listaPedidos = saPedidos.listaPedidos(producto);
+			
+			return (List<T>) listaPedidos;
+		}
+	}
+	
+	public String buscarIdCliente(String correo,String contraseña) {
+		SAClientes saClientes = FactoriaSA.getInstancia().nuevoSAClientes();
+		return saClientes.buscarIdUsuario(correo, contraseña);
 	}
 
 

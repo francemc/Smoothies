@@ -28,8 +28,8 @@ public class SAClientesImp implements SAClientes {
 		try {
 			ok = daoCliente.buscarCliente(correo);
 
-			if(ok.getContraseña().equals(contraseña)) { 
-				return true;
+			if(ok.getContraseña().equals(contraseña)) { 		
+	            return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,5 +48,20 @@ public class SAClientesImp implements SAClientes {
 		}
 		return ok;	
 		
+	}
+
+	@Override
+	public String buscarIdUsuario(String correo, String contraseña) {
+		DAOCliente daoCliente = (DAOCliente) FactoriaDAO.getInstancia().nuevoDAOClientes();
+		TransferCliente ok;
+		try {
+			ok = daoCliente.buscarCliente(correo);
+			if(ok.getContraseña().equals(contraseña)) { 		
+	            return ok.id;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

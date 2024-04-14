@@ -15,9 +15,13 @@ public class GUIClientesImp extends GUIClientes {
 	private JPanel panel; // Variable de instancia para el panel principal
 	private Controlador controlador; // Agregar referencia al controlador
 
+	private Pedido pedido;
+	
     public GUIClientesImp(Controlador controlador,Object datos) {
         this.controlador = controlador;
 
+        this.pedido = Pedido.getInstancia();
+        
         // Crear un nuevo JFrame para el menú
         JFrame menuFrame = new JFrame("Menú");
         menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

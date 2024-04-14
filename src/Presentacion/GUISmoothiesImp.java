@@ -111,6 +111,7 @@ public class GUISmoothiesImp extends GUISmoothies {
             datos.put("idUsuario", String.valueOf(idUsuario));
             cntr.accion(Eventos.AÑADIR_CLIENTE, datos);
             cntr.accion(Eventos.INICIAR_SESION, datos) ; 
+            cntr.accion(Eventos.INICIAR_PEDIDO,datos);
             
             
         });

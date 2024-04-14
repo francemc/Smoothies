@@ -6,5 +6,5 @@ public interface SAPedidos {
 
 	public boolean crearPedido(int idPedido,String batidos,int precio,int unidades,int idUsuario);
 	boolean buscarPedido(int idPedido);
-	List<TransferPedido> listaPedidos(int idUsuario);
+	List<TransferPedido> listaPedidos(String producto);
 }
