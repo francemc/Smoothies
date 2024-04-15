@@ -15,6 +15,8 @@ public class GUICarritoImp extends GUICarrito {
     public GUICarritoImp(Controlador controlador, Object datos) {
         this.controlador = controlador;
         this.pedido = Pedido.getInstancia();
+     
+        
         
         // Crear un nuevo JFrame para la GUI del carrito
         carritoFrame = new JFrame("Carrito");
@@ -53,9 +55,9 @@ public class GUICarritoImp extends GUICarrito {
             public void actionPerformed(ActionEvent e) {
                 int selectedIndex = productosList.getSelectedIndex();
                 if (selectedIndex != -1) {
+                    pedido.eliminarProducto(productosListModel.elementAt(selectedIndex));
                     productosListModel.remove(selectedIndex);
                     
-                    pedido.eliminarProducto(productosListModel.elementAt(selectedIndex));
                 }
             }
         });
@@ -77,6 +79,7 @@ public class GUICarritoImp extends GUICarrito {
         tramitarButton.addActionListener(e -> {
             // Lógica para tramitar el pedido
             // Implementa la lógica según sea necesario
+        	pedido.realizarPedido(pedido.getId(), pedido.getBatidos(), pedido.getPrecio(), pedido.getUnidades(),pedido.getIdUsuario());
         });
 
         // Agregar componentes al panel del carrito

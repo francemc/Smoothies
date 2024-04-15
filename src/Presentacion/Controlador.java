@@ -15,4 +15,5 @@ public abstract class Controlador {
 	
 	public abstract void accion(int evento, Object datos);
 	public abstract <T>List<T> devolverLista(String producto); //programación genérica
+	public abstract String buscarIdCliente(Object datos);
 }

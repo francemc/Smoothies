@@ -7,7 +7,7 @@ public class TransferPedido extends DAOPedidosImp {
     protected String batidos;
     protected int precio;
     protected int unidades;
-    protected int idUsuario;
+    protected String idUsuario;
 
     // Getters
     public int getIdPedido() {
@@ -26,7 +26,7 @@ public class TransferPedido extends DAOPedidosImp {
         return unidades;
     }
 
-    public int getIdUsuario() {
+    public String getIdUsuario() {
         return idUsuario;
     }
 
@@ -47,7 +47,7 @@ public class TransferPedido extends DAOPedidosImp {
         this.unidades = unidades;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
 }

@@ -34,7 +34,7 @@ public class DAOPedidosImp implements DAOPedidos{
 	            	tP.setBatidos(rs.getString("batidos"));
 	            	tP.setPrecio(rs.getInt("precio"));
 	            	tP.setUnidades(rs.getInt("unidades"));
-	            	tP.setIdUsuario(rs.getInt("idUsuario"));	            } else {
+	            	tP.setIdUsuario(rs.getString("idUsuario"));	            } else {
 	                return null;
 	            }
 	        }
@@ -49,7 +49,7 @@ public class DAOPedidosImp implements DAOPedidos{
 	}
 
 	@Override
-	public boolean crearPedido(int idPedido, String batidos, int precio, int unidades, int idUsuario) {
+	public boolean crearPedido(int idPedido, String batidos, int precio, int unidades, String idUsuario) {
 	    String url = "jdbc:mysql://localhost:3306/smoothies";
 	    String usuario = "root";
 	    String contraseña2 = "contraseñaSQL";
@@ -66,7 +66,7 @@ public class DAOPedidosImp implements DAOPedidos{
 	            stmt.setString(2, batidos);
 	            stmt.setInt(3, precio);
 	            stmt.setInt(4, unidades);
-	            stmt.setInt(5, idUsuario);
+	            stmt.setString(5, idUsuario);
 
 	            // Ejecutar la consulta
 	            int filasAfectadas = stmt.executeUpdate();
@@ -107,7 +107,7 @@ public class DAOPedidosImp implements DAOPedidos{
 	                tP.setBatidos(rs.getString("batidos"));
 	                tP.setPrecio(rs.getInt("precio"));
 	                tP.setUnidades(rs.getInt("unidades"));
-	                tP.setIdUsuario(rs.getInt("idUsuario"));
+	                tP.setIdUsuario(rs.getString("idUsuario"));
 	                listaPedidos.add(tP);
 	            }
 	        }

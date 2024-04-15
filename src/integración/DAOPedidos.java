@@ -8,7 +8,7 @@ import Negocio.TransferProducto;
 public interface DAOPedidos {
 
 	public TransferPedido buscarPedido(int idPedido);
-	public boolean crearPedido(int idPedido,String batidos,int precio, int unidades,int idUsuario);
+	public boolean crearPedido(int idPedido,String batidos,int precio, int unidades,String idUsuario);
 	public List<TransferPedido> sacarListaPedidos(int idPedido);
 	
 }

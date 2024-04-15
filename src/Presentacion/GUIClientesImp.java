@@ -21,7 +21,9 @@ public class GUIClientesImp extends GUIClientes {
         this.controlador = controlador;
 
         this.pedido = Pedido.getInstancia();
-        
+        pedido.setIdUsuario(controlador.buscarIdCliente(datos));
+        pedido.setId((int) (Math.random() * 900000) + 100000);
+     
         // Crear un nuevo JFrame para el menú
         JFrame menuFrame = new JFrame("Menú");
         menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

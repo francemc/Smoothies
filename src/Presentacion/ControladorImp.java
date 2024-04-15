@@ -131,7 +131,11 @@ public class ControladorImp extends Controlador{
 		}
 	}
 	
-	public String buscarIdCliente(String correo,String contraseña) {
+	public String buscarIdCliente(Object datos) {
+		HashMap<String, String> ids = (HashMap<String, String>) datos;
+		String correo = new String(ids.get("correo"));
+		String contraseña = new String(ids.get("contraseña"));
+		
 		SAClientes saClientes = FactoriaSA.getInstancia().nuevoSAClientes();
 		return saClientes.buscarIdUsuario(correo, contraseña);
 	}

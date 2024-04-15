@@ -8,7 +8,7 @@ import integración.FactoriaDAO;
 public class SAPedidosImp implements SAPedidos{
 
 	@Override
-	public boolean crearPedido(int idPedido, String batidos, int precio, int unidades, int idUsuario) {
+	public boolean crearPedido(int idPedido, String batidos, int precio, int unidades, String idUsuario) {
 		DAOPedidos daoPedidos = (DAOPedidos) FactoriaDAO.getInstancia().nuevoDAOPedidos();
 		boolean ok = false;
 		
