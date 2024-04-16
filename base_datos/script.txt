@@ -7,6 +7,7 @@ CREATE TABLE ingredientes (
     calorias INT
 );
 
+///
 -- Insertar datos en la tabla de ingredientes
 INSERT INTO ingredientes (id, nombre, calorias) VALUES
 (1, 'arándano', 57),
