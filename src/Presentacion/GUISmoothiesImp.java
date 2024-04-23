@@ -111,7 +111,7 @@ public class GUISmoothiesImp extends GUISmoothies {
             datos.put("idUsuario", String.valueOf(idUsuario));
             cntr.accion(Eventos.AÑADIR_CLIENTE, datos);
             cntr.accion(Eventos.INICIAR_SESION, datos) ; 
-            cntr.accion(Eventos.INICIAR_PEDIDO,datos);
+            //cntr.accion(Eventos.INICIAR_PEDIDO,datos);
             
             
         });
@@ -166,7 +166,12 @@ public class GUISmoothiesImp extends GUISmoothies {
             HashMap<String, String> datos = new HashMap<>();
             datos.put("correo", correo);
             datos.put("contraseña", contraseña);
-            cntr.accion(Eventos.INICIAR_SESION, datos);
+            if(correo.equals("administrador")  && contraseña.equals("secreta")) {
+            	cntr.accion(Eventos.INICIAR_ADMINISTRADOR, datos);
+            }else {
+            	cntr.accion(Eventos.INICIAR_SESION, datos);
+            }
+            
             
         });
 
@@ -185,12 +190,12 @@ public class GUISmoothiesImp extends GUISmoothies {
             break;
         }
         case (Eventos.CLIENTE_REGISTRADO):{
-        	//GUIAdministradorImp guiAdmin = new GUIAdministradorImp(cntr);
-        	
+        	//GUIAdministradorImp guiAdmin = new GUIAdministradorImp(cntr);     	
         	GUIClientesImp guiClientes = new GUIClientesImp(cntr,datos);
-        
-
            break;          
+        }
+        case (Eventos.INICIAR_ADMINISTRADOR):{
+        	GUIAdministradorImp guiAdministrador = new GUIAdministradorImp(cntr);
         }
     }
 

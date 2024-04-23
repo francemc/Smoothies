@@ -29,8 +29,29 @@ public class SAPedidosImp implements SAPedidos{
 
 	@Override
 	public List<TransferPedido> listaPedidos(String idUsuario) {
-		// TODO Auto-generated method stub
-		return null;
+		DAOPedidos daoPedidos = (DAOPedidos) FactoriaDAO.getInstancia().nuevoDAOPedidos();
+		List<TransferPedido> listaPedidos = null;
+		
+		try {
+			listaPedidos = daoPedidos.sacarListaPedidos(idUsuario);
+			
+		}catch(Exception e) {
+			 e.printStackTrace();
+		}
+		return listaPedidos;
+	}
+
+	@Override
+	public List<TransferPedido> listaTodosPedidos() {
+		DAOPedidos daoPedidos = (DAOPedidos) FactoriaDAO.getInstancia().nuevoDAOPedidos();
+		List<TransferPedido> listaPedidos = null;
+		try {
+			listaPedidos = daoPedidos.sacarTodosPedidos();
+			
+		}catch(Exception e) {
+			 e.printStackTrace();
+		}
+		return listaPedidos;
 	}
 
 }

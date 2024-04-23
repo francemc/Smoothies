@@ -77,9 +77,13 @@ public class GUICarritoImp extends GUICarrito {
         // Crear un botón para tramitar el pedido
         JButton tramitarButton = new JButton("Tramitar");
         tramitarButton.addActionListener(e -> {
-            // Lógica para tramitar el pedido
-            // Implementa la lógica según sea necesario
-        	pedido.realizarPedido(pedido.getId(), pedido.getBatidos(), pedido.getPrecio(), pedido.getUnidades(),pedido.getIdUsuario());
+            
+        	//CONECTAR CON EL CONTROLADOR -> EVENTOS.CREAR_PEDIDO
+        	//								-> PASAR COMO datos -> el pedido 
+        	controlador.accion(Eventos.CREAR_PEDIDO, pedido);
+        	// Cerrar el programa
+            System.exit(0);
+        	//pedido.realizarPedido(pedido.getId(), pedido.getBatidos(), pedido.getPrecio(), pedido.getUnidades(),pedido.getIdUsuario());
         });
 
         // Agregar componentes al panel del carrito

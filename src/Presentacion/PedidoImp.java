@@ -59,19 +59,5 @@ public class PedidoImp extends Pedido {
         setUnidades(0); // Reiniciar el número de unidades
     }
 
-	@Override
-	public void realizarPedido(int idPedido, String batidos, int cantidad, int precio, String idUsuario) {
-		SAPedidos saPedidos = FactoriaSA.getInstancia().nuevoSAPedidos();
-		
-		if(saPedidos.crearPedido(idPedido, batidos, precio, cantidad, idUsuario)) {
-			JOptionPane.showMessageDialog(null, "Exito al crear el pedido");
-		}else {
-			JOptionPane.showMessageDialog(null, "Error al crear el pedido");
-
-		}
-		
-		
-		
-	}
 
 }

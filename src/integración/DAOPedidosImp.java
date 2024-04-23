@@ -87,7 +87,7 @@ public class DAOPedidosImp implements DAOPedidos{
 
 
 	@Override
-	public List<TransferPedido> sacarListaPedidos(int idPedido) {
+	public List<TransferPedido> sacarListaPedidos(String idUsuario) {
 	    List<TransferPedido> listaPedidos = new ArrayList<>();
 	    String url = "jdbc:mysql://localhost:3306/smoothies";
 	    String usuario = "root";
@@ -96,9 +96,9 @@ public class DAOPedidosImp implements DAOPedidos{
 	    try {
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 	        try (Connection conexion = DriverManager.getConnection(url, usuario, contraseña2)) {
-	            String query = "SELECT * FROM pedidos WHERE idPedido = ?";
+	            String query = "SELECT * FROM pedidos WHERE idUsuario = ?";
 	            PreparedStatement stmt = conexion.prepareStatement(query);
-	            stmt.setInt(1, idPedido);
+	            stmt.setString(1, idUsuario);
 	            ResultSet rs = stmt.executeQuery();
 	            
 	            while (rs.next()) {
@@ -120,6 +120,41 @@ public class DAOPedidosImp implements DAOPedidos{
 	    }
 	    return listaPedidos;
 	}
+
+	@Override
+	public List<TransferPedido> sacarTodosPedidos() {
+	    List<TransferPedido> listaPedidos = new ArrayList<>();
+	    String url = "jdbc:mysql://localhost:3306/smoothies";
+	    String usuario = "root";
+	    String contraseña2 = "contraseñaSQL";
+
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        try (Connection conexion = DriverManager.getConnection(url, usuario, contraseña2)) {
+	            String query = "SELECT * FROM pedidos"; 
+	            PreparedStatement stmt = conexion.prepareStatement(query);
+	            ResultSet rs = stmt.executeQuery();
+	            
+	            while (rs.next()) {
+	                TransferPedido tP = new TransferPedido();
+	                tP.setIdPedido(rs.getInt("idPedido"));
+	                tP.setBatidos(rs.getString("batidos"));
+	                tP.setPrecio(rs.getInt("precio"));
+	                tP.setUnidades(rs.getInt("unidades"));
+	                tP.setIdUsuario(rs.getString("idUsuario"));
+	                listaPedidos.add(tP);
+	            }
+	        }
+	    } catch (ClassNotFoundException e) {
+	        System.out.println("Error: no se pudo cargar el driver de MySQL");
+	        e.printStackTrace();
+	    } catch (SQLException e) {
+	        System.out.println("Error al conectar a la base de datos MySQL");
+	        e.printStackTrace();
+	    }
+	    return listaPedidos;
+	}
+
 
 	
 	

@@ -2,11 +2,17 @@ package Presentacion;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import Negocio.TransferPedido;
 
 public class GUIAdministradorImp extends GUIAdministrador {
 	private Controlador cntr  ; 
@@ -26,10 +32,10 @@ public class GUIAdministradorImp extends GUIAdministrador {
         JPanel mainButtonsPanel = new JPanel(new GridLayout(1, 2));
 
         // Crear botones para las opciones principales del menú
-        JButton Button1 = new JButton("Pedidos");
+        JButton botonPedidos = new JButton("Pedidos");
         JButton Button2 = new JButton("Stock");
         JButton Button3 = new JButton("Añadir") ; 
-        mainButtonsPanel.add(Button1);
+        mainButtonsPanel.add(botonPedidos);
         mainButtonsPanel.add(Button2);
         mainButtonsPanel.add(Button3);
 
@@ -48,6 +54,28 @@ public class GUIAdministradorImp extends GUIAdministrador {
             System.exit(0);
         });
 
+        botonPedidos.addActionListener(e -> {
+            // Obtener la lista de pedidos del controlador
+            List<TransferPedido> listaPedidos = cntr.devolverLista("pedidos");
+            
+            // Crear un arreglo de strings para almacenar la representación de los pedidos
+            String[] pedidosArray = new String[listaPedidos.size()];
+            for (int i = 0; i < listaPedidos.size(); i++) {
+                TransferPedido pedido = listaPedidos.get(i);
+                // Formatear la representación del pedido como desees
+                String pedidoStr = "ID: " + pedido.getIdPedido() + " - Batidos: " + pedido.getBatidos();
+                pedidosArray[i] = pedidoStr;
+            }
+            
+            // Crear una JList con los pedidos
+            JList<String> listaPedidosJList = new JList<>(pedidosArray);
+            
+            // Mostrar la lista de pedidos en un JOptionPane
+            JOptionPane.showMessageDialog(null, new JScrollPane(listaPedidosJList), "Lista de Pedidos", JOptionPane.PLAIN_MESSAGE);
+        });
+
+
+        
 
         // Agregar los botones adicionales al panel de botones adicionales
         additionalButtonsPanel.add(salirButton);

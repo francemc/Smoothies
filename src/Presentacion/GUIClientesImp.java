@@ -1,10 +1,14 @@
 package Presentacion;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import Negocio.TransferPedido;
+
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
+import java.util.List;
 
 public class GUIClientesImp extends GUIClientes {
 //   
@@ -109,11 +113,27 @@ public class GUIClientesImp extends GUIClientes {
             JButton verPedidosButton = new JButton("Ver Pedidos");
             JButton cerrarCuentaButton = new JButton("Cerrar Cuenta");
 
-            // Agregar oyentes de evento a los botones de la cuenta
             verPedidosButton.addActionListener(e1 -> {
-                // Lógica para ver los pedidos del cliente
-                JOptionPane.showMessageDialog(menuFrame, "Ver Pedidos.");
+            	String idCliente = controlador.buscarIdCliente(datos);
+                // Obtener la lista de pedidos del usuario actual del controlador
+                List<TransferPedido> listaPedidos = controlador.devolverLista(idCliente); 
+                
+                // Crear un arreglo de strings para almacenar la representación de los pedidos
+                String[] pedidosArray = new String[listaPedidos.size()];
+                for (int i = 0; i < listaPedidos.size(); i++) {
+                    TransferPedido pedidoUsuario = listaPedidos.get(i);
+                    // Formatear la representación del pedido como desees
+                    String pedidoStr = "ID: " + pedidoUsuario.getIdPedido() + " - Batidos: " + pedidoUsuario.getBatidos();
+                    pedidosArray[i] = pedidoStr;
+                }
+                
+                // Crear una JList con los pedidos
+                JList<String> listaPedidosJList = new JList<>(pedidosArray);
+                
+                // Mostrar la lista de pedidos en un JOptionPane
+                JOptionPane.showMessageDialog(null, new JScrollPane(listaPedidosJList), "Lista de Pedidos", JOptionPane.PLAIN_MESSAGE);
             });
+
 
             cerrarCuentaButton.addActionListener(e2 -> {
                 // Mostrar una ventana de confirmación

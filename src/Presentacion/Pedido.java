@@ -4,23 +4,26 @@ import Negocio.TransferPedido;
 
 public abstract class Pedido {
 	private static Pedido instancia = null;
+	
 	private int idPedido = 0;
 	private String batidos="";
 	private int precio = 0;
 	private int unidades= 0;
 	private String idUsuario;
-	private TransferPedido tpPedido = new TransferPedido();
+	private static TransferPedido instanciatpPedido = new TransferPedido();
+	
 	
 	static public Pedido getInstancia() {
-		if(instancia == null)
+		if(instancia == null) {
 			instancia = new PedidoImp();
+			//instanciatpPedido = new TransferPedido();
+		}
 		return instancia;
 	}
 	
 	public abstract void agregarProducto(String idBatido);
 	public abstract void eliminarProducto(String idBatido);
 	public abstract void vaciarCarrito();
-	public abstract void realizarPedido(int idPedido,String batidos,int cantidad,int precio,String idUsuario);
 	
 	public int getUnidades() {
 		return unidades;

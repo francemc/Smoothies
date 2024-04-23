@@ -64,6 +64,10 @@ public class ControladorImp extends Controlador{
 			}
 		}
 		
+		case (Eventos.INICIAR_ADMINISTRADOR):{
+			GUIAdministrador.getInstancia(Controlador.getInstancia()).actualizar(Eventos.INICIAR_ADMINISTRADOR, datos);
+		}
+		
 		case (Eventos.LISTA_INGREDIENTES):{
 			
             SAProductos saProductos = new SAProductosImp();
@@ -91,9 +95,22 @@ public class ControladorImp extends Controlador{
 			break;
 		}
 		
-		case (Eventos.INICIAR_PEDIDO):{
-			HashMap<String, String> ids = (HashMap<String, String>) datos;
-			SAClientes saClientes = FactoriaSA.getInstancia().nuevoSAClientes();
+		case (Eventos.CREAR_PEDIDO):{
+			Pedido ids = (Pedido) datos;
+			//SACAR DE IDS LOS DATOS PARA CREAR EL PEDIDO
+			/*
+			 * protected int idPedido;
+    			protected String batidos;
+    			protected int precio;
+    			protected int unidades;
+    			protected String idUsuario;
+			 */		
+			SAPedidos saPedidos = FactoriaSA.getInstancia().nuevoSAPedidos();
+			if(saPedidos.crearPedido(ids.getId(), ids.getBatidos(), ids.getUnidades(), ids.getPrecio(), ids.getIdUsuario())) {
+				JOptionPane.showMessageDialog(null, "Pedido realizado con éxito, gracias por comprar con nosotros");
+			}else {
+				JOptionPane.showMessageDialog(null, "Error al realizar pedido");
+			}
 			
 			break;
 		}
@@ -122,7 +139,11 @@ public class ControladorImp extends Controlador{
 			
 			return (List<T>) listaSmoothies;
 		}
-		
+		else if(producto == "pedidos"){
+			SAPedidos saPedidos = new SAPedidosImp();
+			List<TransferPedido> listaPedidos = saPedidos.listaTodosPedidos();
+			return (List<T>) listaPedidos;
+		}
 		else{ //ESTO ES UN APAÑO HABRÍA QUE BUSCAR OTRA FORMA // PRODUCTO --> ID_USUARIO
 			SAPedidos saPedidos = new SAPedidosImp();
 			List<TransferPedido> listaPedidos = saPedidos.listaPedidos(producto);
