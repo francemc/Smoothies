@@ -7,6 +7,7 @@ public class TransferProducto extends DAOProductosImp{
 	protected String nombre;
 	protected int id;
 	protected int calorias;
+	protected boolean disponibilidad ; 
 	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
@@ -19,6 +20,9 @@ public class TransferProducto extends DAOProductosImp{
 	public void setId(int id) {
 		this.id = id;
 	}
+	public void setDisp(boolean disp) {
+		this.disponibilidad = disp ; 
+	}
 	
 	public String getNombre() {
 		return nombre;
@@ -30,6 +34,9 @@ public class TransferProducto extends DAOProductosImp{
 	
 	public int getCalorias() {
 		return calorias;
+	}
+	public boolean getDisp() {
+		return disponibilidad;
 	}
 	
 	

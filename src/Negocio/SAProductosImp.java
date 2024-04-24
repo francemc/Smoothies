@@ -41,12 +41,12 @@ public class SAProductosImp implements SAProductos {
 	}
 
 	@Override
-	public List<TransferProducto> listaIngredientes() {
+	public List<TransferProducto> listaIngredientes(boolean especifico) {
         DAOProductos daoProductos = FactoriaDAO.getInstancia().nuevoDAOProductos();
         List<TransferProducto> listaIngredientes = null;
 
         try {
-            listaIngredientes = daoProductos.sacarListaIngredientes();
+            listaIngredientes = daoProductos.sacarListaIngredientes(especifico);
         } catch (Exception e) {
             e.printStackTrace();
         }      

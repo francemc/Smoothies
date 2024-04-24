@@ -116,7 +116,7 @@ public class GUIClientesImp extends GUIClientes {
             verPedidosButton.addActionListener(e1 -> {
             	String idCliente = controlador.buscarIdCliente(datos);
                 // Obtener la lista de pedidos del usuario actual del controlador
-                List<TransferPedido> listaPedidos = controlador.devolverLista(idCliente); 
+                List<TransferPedido> listaPedidos = controlador.devolverLista(idCliente,false); 
                 
                 // Crear un arreglo de strings para almacenar la representación de los pedidos
                 String[] pedidosArray = new String[listaPedidos.size()];

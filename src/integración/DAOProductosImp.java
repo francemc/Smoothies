@@ -25,7 +25,7 @@ public class DAOProductosImp implements DAOProductos {
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 	        // Conectar a la base de datos
 	        try (Connection conexion = DriverManager.getConnection(url, usuario, contraseña2)) {
-	            String query = "SELECT * FROM ingredientes WHERE nombre = ?";
+	            String query = "SELECT * FROM ingredientes WHERE nombre = ? ";
 	            PreparedStatement stmt = conexion.prepareStatement(query);
 	            stmt.setString(1, nombre);
 	            ResultSet rs = stmt.executeQuery();
@@ -33,6 +33,7 @@ public class DAOProductosImp implements DAOProductos {
 	            	tP.setNombre(rs.getString("nombre"));
 	            	tP.setCalorias(rs.getInt("calorias"));
 	            	tP.setId(rs.getInt("id"));
+	            	tP.setDisp(rs.getBoolean("disponibilidad"));
 
 	                return tP;
 	            } else {
@@ -57,20 +58,33 @@ public class DAOProductosImp implements DAOProductos {
 	    String usuario = "root";
 	    String contraseña2 = "contraseñaSQL";
 		
-	    if (tP == null) { // significa que el cliente no existe
+	     // significa que el cliente no existe
 	        try {
 	            // Registrar el driver de MySQL
 	            Class.forName("com.mysql.cj.jdbc.Driver");
-
+	             
 	            // Conectar a la base de datos
 	            try (Connection conexion = DriverManager.getConnection(url, usuario, contraseña2)) {
-	            	            	
-	                String query = "INSERT INTO ingredientes (nombre ,id, calorias) VALUES (?, ?, ?)";
-	                PreparedStatement stmt = conexion.prepareStatement(query);
+	            	String query  ; 
+	            	 PreparedStatement stmt = null ;
+	            	
+	            	 if (tP == null) { 
+	            		 
+	                query = "INSERT INTO ingredientes (nombre ,id, calorias,disponibilidad) VALUES (?, ?, ?, ?)";
+	                stmt = conexion.prepareStatement(query);
 	                stmt.setString(1, nombre);
 	                stmt.setInt(2, id);
 	                stmt.setInt(3, calorias);
-	             
+	                stmt.setBoolean(4, true);}
+	            	 else if(!tP.getDisp()) {
+	            		 query = "UPDATE ingredientes SET disponibilidad = 0 WHERE id = ? "  ; 
+	            		 stmt = conexion.prepareStatement(query);
+	 	                 stmt.setInt(1, id);
+	 	                 tP.setDisp(true);
+	                }
+
+	                
+	                
 	                int resultado = stmt.executeUpdate();
 	                if (resultado > 0) {
 	                    return true;
@@ -86,12 +100,13 @@ public class DAOProductosImp implements DAOProductos {
 	            System.out.println("Error al conectar a la base de datos MySQL");
 	            e.printStackTrace();
 	        }
-	    }
+	    
+	   
 		return false;
 	}
 
 	@Override
-    public List<TransferProducto> sacarListaIngredientes() {
+    public List<TransferProducto> sacarListaIngredientes(boolean especifico) {
         List<TransferProducto> listaIngredientes = new ArrayList<>();
         String url = "jdbc:mysql://localhost:3306/smoothies";
         String usuario = "root";
@@ -100,8 +115,8 @@ public class DAOProductosImp implements DAOProductos {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection conexion = DriverManager.getConnection(url, usuario, contraseña2)) {
-            	
-                String query = "SELECT * FROM ingredientes";
+            	String query = "SELECT * FROM ingredientes";
+            	if(especifico) query = "SELECT * FROM ingredientes WHERE disponibilidad = 1" ; 
                 PreparedStatement stmt = conexion.prepareStatement(query);
                 ResultSet rs = stmt.executeQuery();
                 
@@ -110,6 +125,7 @@ public class DAOProductosImp implements DAOProductos {
                     tP.setNombre(rs.getString("nombre"));
                     tP.setCalorias(rs.getInt("calorias"));
                     tP.setId(rs.getInt("id"));
+                    tP.setDisp(rs.getBoolean("disponibilidad"));
                     listaIngredientes.add(tP);
                 }
             }

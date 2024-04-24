@@ -66,13 +66,14 @@ public class ControladorImp extends Controlador{
 		
 		case (Eventos.INICIAR_ADMINISTRADOR):{
 			GUIAdministrador.getInstancia(Controlador.getInstancia()).actualizar(Eventos.INICIAR_ADMINISTRADOR, datos);
+			break ; 
 		}
 		
 		case (Eventos.LISTA_INGREDIENTES):{
 			
             SAProductos saProductos = new SAProductosImp();
             
-            List<TransferProducto> listaIngredientes = saProductos.listaIngredientes();
+            List<TransferProducto> listaIngredientes = saProductos.listaIngredientes(true);
 
             datos = listaIngredientes;
 			
@@ -124,12 +125,12 @@ public class ControladorImp extends Controlador{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T>List<T> devolverLista(String producto){
+	public <T>List<T> devolverLista(String producto,boolean especifico){
 		
 		if (producto == "ingredientes"){
 			SAProductos saProductos = new SAProductosImp();
-	        
-	        List<TransferProducto> listaIngredientes = saProductos.listaIngredientes();
+	        List<TransferProducto> listaIngredientes = saProductos.listaIngredientes(especifico);
+	       
 	        
 	        return (List<T>) listaIngredientes;
 		}

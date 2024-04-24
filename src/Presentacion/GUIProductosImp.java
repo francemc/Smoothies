@@ -24,7 +24,7 @@ public class GUIProductosImp extends GUIProductos {
         this.totalUnidades = 0;
 
         // Obtener la lista de ingredientes desde el controlador
-        this.listaIngredientes = controlador.devolverLista("ingredientes");
+        this.listaIngredientes = controlador.devolverLista("ingredientes",true);
 
         // Crear el JFrame principal
         menuFrame = new JFrame("Smoothie Personalizado");
@@ -46,8 +46,10 @@ public class GUIProductosImp extends GUIProductos {
         // Calcular el ancho máximo de los nombres de los productos
         int maxWidth = 0;
         for (TransferProducto producto : listaIngredientes) {
+        	
             JLabel tempLabel = new JLabel(producto.getNombre());
             maxWidth = Math.max(maxWidth, tempLabel.getPreferredSize().width);
+        	
         }
 
         // Agregar la lista de ingredientes al JPanel
@@ -59,6 +61,7 @@ public class GUIProductosImp extends GUIProductos {
         gbc.gridy = 0;
 
         for (TransferProducto producto : listaIngredientes) {
+        	
             JPanel productoPanel = new JPanel(new BorderLayout());
             JLabel nombreLabel = new JLabel(producto.getNombre());
             // Establecer el mismo ancho mínimo para todos los nombres de productos
@@ -81,6 +84,8 @@ public class GUIProductosImp extends GUIProductos {
                         JOptionPane.showMessageDialog(menuFrame, "No se pueden agregar más de 5 ingredientes", "Error", JOptionPane.ERROR_MESSAGE); 
                     }
                 }
+                
+            
             });
             JButton removeButton = new JButton("-");
             removeButton.addActionListener(new ActionListener() {
@@ -143,7 +148,8 @@ public class GUIProductosImp extends GUIProductos {
         // Agregar el JPanel de contenido al JFrame principal
         menuFrame.add(contentPanel);
         menuFrame.setVisible(true);
-    }
+    
+}
 
     @Override
     public void actualizar(int evento, Object datos) {

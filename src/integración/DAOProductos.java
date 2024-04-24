@@ -9,5 +9,5 @@ public interface DAOProductos {
 
 	public boolean añadirProducto(String nombre,int id, int calorias);
 	
-	public List<TransferProducto> sacarListaIngredientes();
+	public List<TransferProducto> sacarListaIngredientes(boolean especifico);
 }

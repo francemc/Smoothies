@@ -23,7 +23,7 @@ public class GUIMenuImp extends GUIMenu {
         this.pedido = Pedido.getInstancia();
         this.controlador = controlador;
         this.listaSmoothies = new ArrayList<>();
-        this.listaSmoothies = controlador.devolverLista("smoothies");
+        this.listaSmoothies = controlador.devolverLista("smoothies",false);
 
         menuFrame = new JFrame("Menu Smoothies");
         menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
