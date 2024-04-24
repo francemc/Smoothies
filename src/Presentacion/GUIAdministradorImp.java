@@ -228,7 +228,16 @@ public class GUIAdministradorImp extends GUIAdministrador {
 	    @Override
 	    public Object getCellEditorValue() {
 	        if (isPushed) {
-	            JOptionPane.showConfirmDialog(button, "¿Quieres cambiar de estado?");
+	        	int respuesta =JOptionPane.showConfirmDialog(button, "¿Quieres cambiar de estado?",null, JOptionPane.YES_NO_OPTION);
+	            
+
+                if (respuesta == JOptionPane.YES_OPTION) {
+                 //   controlador.accion(Eventos.CAMBIAR_DISPONIBILIDAD,datos);
+                    System.exit(0);   
+                } else {
+                    // El usuario ha cancelado la operación
+                    JOptionPane.showMessageDialog(button, "Operación cancelada.");
+                }
 	        }
 	        isPushed = false;
 	        return label;
