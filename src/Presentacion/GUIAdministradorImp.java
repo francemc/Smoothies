@@ -11,7 +11,7 @@ import java.util.List;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
+
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -21,7 +21,7 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
+
 import javax.swing.table.TableModel;
 
 import Negocio.TransferPedido;
@@ -30,8 +30,8 @@ import Negocio.TransferProducto;
 public class GUIAdministradorImp extends GUIAdministrador {
 	private Controlador cntr  ; 
 	private JPanel panel  ; 
-	
-	
+	private Object datos  ;
+	private int pos; 
 	
 	public GUIAdministradorImp(Controlador contr ) {
 		this.cntr = contr  ; 
@@ -113,8 +113,6 @@ public class GUIAdministradorImp extends GUIAdministrador {
              TableModel tableModel = new DefaultTableModel(values.toArray(new Object[][] {}), columns.toArray());
           // Crear un renderizador de celdas personalizado para agregar un botón a cada fila
              
-            
-          
 
               JTable table = new JTable(tableModel);
               table.getColumn("Estado").setCellRenderer(new ButtonRenderer());
@@ -203,6 +201,8 @@ public class GUIAdministradorImp extends GUIAdministrador {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	                fireEditingStopped();
+	                
+	                
 	            }
 
 				
@@ -212,6 +212,9 @@ public class GUIAdministradorImp extends GUIAdministrador {
 	    @Override
 	    public Component getTableCellEditorComponent(JTable table, Object value,
 	            boolean isSelected, int row, int column) {
+	    	String disponibilidad ; 
+	    	String ing ;
+	    
 	        if (isSelected) {
 	            button.setForeground(table.getSelectionForeground());
 	            button.setBackground(table.getSelectionBackground());
@@ -220,6 +223,10 @@ public class GUIAdministradorImp extends GUIAdministrador {
 	            button.setBackground(table.getBackground());
 	        }
 	        label = (value == null) ? "" : value.toString();
+	        pos = row;
+	        ing=(String) table.getValueAt(pos,0); 
+	        disponibilidad  = (String ) value ; 
+	        datos = ing + "," + disponibilidad ; 
 	        button.setText(label);
 	        isPushed = true;
 	        return button;
@@ -229,15 +236,11 @@ public class GUIAdministradorImp extends GUIAdministrador {
 	    public Object getCellEditorValue() {
 	        if (isPushed) {
 	        	int respuesta =JOptionPane.showConfirmDialog(button, "¿Quieres cambiar de estado?",null, JOptionPane.YES_NO_OPTION);
-	            
 
                 if (respuesta == JOptionPane.YES_OPTION) {
-                 //   controlador.accion(Eventos.CAMBIAR_DISPONIBILIDAD,datos);
-                    System.exit(0);   
-                } else {
-                    // El usuario ha cancelado la operación
-                    JOptionPane.showMessageDialog(button, "Operación cancelada.");
-                }
+                	cntr.accion(Eventos.CAMBIAR_DISPONIBILIDAD,datos);
+   
+                } 
 	        }
 	        isPushed = false;
 	        return label;

@@ -13,7 +13,7 @@ import Negocio.TransferProducto;
 public class DAOProductosImp implements DAOProductos {
 
 	@Override
-	public TransferProducto buscarProducto(String nombre, int id, int calorias) {
+	public TransferProducto buscarProducto(String nombre) {
 
 		TransferProducto tP = new TransferProducto();
 	    String url = "jdbc:mysql://localhost:3306/smoothies";
@@ -53,7 +53,7 @@ public class DAOProductosImp implements DAOProductos {
 	@Override
 	public boolean añadirProducto(String nombre, int id, int calorias) {
 
-		TransferProducto tP = this.buscarProducto(nombre,id,calorias);
+		TransferProducto tP = this.buscarProducto(nombre);
 	    String url = "jdbc:mysql://localhost:3306/smoothies";
 	    String usuario = "root";
 	    String contraseña2 = "contraseñaSQL";
@@ -77,9 +77,9 @@ public class DAOProductosImp implements DAOProductos {
 	                stmt.setInt(3, calorias);
 	                stmt.setBoolean(4, true);}
 	            	 else if(!tP.getDisp()) {
-	            		 query = "UPDATE ingredientes SET disponibilidad = 0 WHERE id = ? "  ; 
+	            		 query = "UPDATE ingredientes SET disponibilidad = 0 WHERE nombre = ? "  ; 
 	            		 stmt = conexion.prepareStatement(query);
-	 	                 stmt.setInt(1, id);
+	 	                 stmt.setString(1, nombre);
 	 	                 tP.setDisp(true);
 	                }
 
@@ -138,6 +138,45 @@ public class DAOProductosImp implements DAOProductos {
         }
         return listaIngredientes;
     }
+	@Override
+	public boolean cambiarEstado(String nombre,  boolean disponibilidad) {
+		TransferProducto tP = this.buscarProducto(nombre) ;
+	    String url = "jdbc:mysql://localhost:3306/smoothies";
+	    String usuario = "root";
+	    String contraseña2 = "contraseñaSQL";
+	    
+		
+	    try {
+	    	// Registrar el driver de MySQL
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        // Conectar a la base de datos
+	        try (Connection conexion = DriverManager.getConnection(url, usuario, contraseña2)) {
+	            String query = "UPDATE ingredientes SET disponibilidad  = ? WHERE nombre = ?"  ; 
+	            PreparedStatement stmt = conexion.prepareStatement(query);
+	            stmt.setBoolean(1, disponibilidad);
+	            stmt.setString(2, nombre);
+	            
+	            
+	            int resultado = stmt.executeUpdate();
+                if (resultado > 0) {
+                	tP.cambiarDisp(); 
+                    return true;
+                } else {
+                    return false;
+                }
+	        }
+	           
+	        
+	    } catch (ClassNotFoundException e) {
+	        System.out.println("Error: no se pudo cargar el driver de MySQL");
+	        e.printStackTrace();
+	    } catch (SQLException e) {
+	        System.out.println("Error al conectar a la base de datos MySQL");
+	        e.printStackTrace();
+	    }
+	return false ; 
+
+	}
 
 	
 }

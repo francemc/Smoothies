@@ -39,5 +39,9 @@ public class TransferProducto extends DAOProductosImp{
 		return disponibilidad;
 	}
 	
+	public void cambiarDisp() {
+		disponibilidad = !disponibilidad ; 
+	}
+	
 	
 }

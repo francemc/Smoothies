@@ -29,7 +29,7 @@ public class SAProductosImp implements SAProductos {
 		TransferProducto ok;
 		
 		try {
-			ok = daoProductos.buscarProducto(correo, id, calorias);
+			ok = daoProductos.buscarProducto(correo);
 			if (ok != null) {
 				return true;
 			}
@@ -52,5 +52,18 @@ public class SAProductosImp implements SAProductos {
         }      
         return listaIngredientes;	
     }
+	@Override
+	public boolean cambiarestado(String nombre, boolean disponibilidad) {
+		DAOProductos daoProductos = FactoriaDAO.getInstancia().nuevoDAOProductos();
+		boolean ok = false;
+		try {
+			ok = daoProductos.cambiarEstado(nombre, disponibilidad);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }      
+        return ok;
+		
+		
+	}
 
 }
