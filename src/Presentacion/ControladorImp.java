@@ -20,6 +20,7 @@ import Negocio.TransferSmoothies;
 
 public class ControladorImp extends Controlador{
 
+	@SuppressWarnings("removal")
 	public void accion(int evento, Object datos) {
 		
 		switch (evento) {
@@ -114,6 +115,28 @@ public class ControladorImp extends Controlador{
 			}
 			
 			break;
+		}
+		case(Eventos.CAMBIAR_DISPONIBILIDAD):{
+			SAProductos saProductos = FactoriaSA.getInstancia().nuevoSAProducto() ; 
+			String dato = (String) datos ; 
+			boolean disponibilidad ; 
+			String[] parts = dato.split(",");
+			String nombre = parts[0];
+			String disp = parts[1]; 
+			if(disp == "Activo") { 
+				disponibilidad = true  ; 
+			}
+			else {
+				disponibilidad = false ; 
+			}
+				
+			if(saProductos.cambiarestado(nombre,disponibilidad)) {
+				JOptionPane.showMessageDialog(null, "Cambio de estado realizado con exito");
+			}else {
+				JOptionPane.showMessageDialog(null, "Error al realizar el cambio");
+			}
+
+			break ; 
 		}
 
 		default: {

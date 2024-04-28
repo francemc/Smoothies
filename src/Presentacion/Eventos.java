@@ -13,7 +13,7 @@ public class Eventos {
 	public static final int ELIMINAR_CLIENTE = 7;
 	public static final int VER_CARRITO = 9;
 	public static final int BUSCAR_ID_CLIENTE = 20;
-	
+	public static final int CAMBIAR_DISPONIBILIDAD= 30 ;
 	public static final int CREAR_PEDIDO = 10;
 	public static final int INICIAR_ADMINISTRADOR = 40;
 }
