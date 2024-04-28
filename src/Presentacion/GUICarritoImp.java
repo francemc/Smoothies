@@ -48,7 +48,7 @@ public class GUICarritoImp extends GUICarrito {
             productosListModel.addElement(producto);
         }
 
-        // Crear un botón para eliminar un producto del carrito
+     // Crear un botón para eliminar un producto del carrito
         JButton eliminarButton = new JButton("Eliminar");
         eliminarButton.addActionListener(new ActionListener() {
             @Override
@@ -58,9 +58,12 @@ public class GUICarritoImp extends GUICarrito {
                     pedido.eliminarProducto(productosListModel.elementAt(selectedIndex));
                     productosListModel.remove(selectedIndex);
                     
+                    // Actualizar el campo de texto con el nuevo precio del pedido
+                    totalField.setText(String.valueOf(pedido.getPrecio()));
                 }
             }
         });
+
 
         // Crear un JPanel para contener el botón de eliminar
         JPanel eliminarPanel = new JPanel();
@@ -71,19 +74,15 @@ public class GUICarritoImp extends GUICarrito {
 
         // Crear un JLabel para mostrar el total del pedido
         JLabel totalLabel = new JLabel("Total:");
-        totalField = new JTextField("0");
+        totalField = new JTextField(String.valueOf(pedido.getPrecio()));
         totalField.setEditable(false);
 
         // Crear un botón para tramitar el pedido
         JButton tramitarButton = new JButton("Tramitar");
         tramitarButton.addActionListener(e -> {
-            
-        	//CONECTAR CON EL CONTROLADOR -> EVENTOS.CREAR_PEDIDO
-        	//								-> PASAR COMO datos -> el pedido 
-        	controlador.accion(Eventos.CREAR_PEDIDO, pedido);
-        	// Cerrar el programa
+               	
+        	controlador.accion(Eventos.CREAR_PEDIDO, pedido);       	
             System.exit(0);
-        	//pedido.realizarPedido(pedido.getId(), pedido.getBatidos(), pedido.getPrecio(), pedido.getUnidades(),pedido.getIdUsuario());
         });
 
         // Agregar componentes al panel del carrito

@@ -72,11 +72,19 @@ public class GUIMenuImp extends GUIMenu {
                     int smoothieID = smoothie.getId(); // Suponiendo que TransferSmoothies tenga un método para obtener el ID
 
                     // Crear el string que representa el producto en el carrito
-                    String producto = "0" + selectedSize + smoothieID; // Concatenar los valores para crear el producto
+                    String producto = "0-" + selectedSize+ "-"+ smoothieID; // Concatenar los valores para crear el producto
 
                     // Luego, puedes llamar al método para agregar el smoothie al carrito
                     pedido.agregarProducto(producto);
 
+                    if(selectedSize == "Pequeño") {
+                    	pedido.sumarBatido(4);
+                    }else if(selectedSize == "Mediano") {
+                    	pedido.sumarBatido(5);
+                    }else {
+                    	pedido.sumarBatido(6);
+                    }
+                    
                     JOptionPane.showMessageDialog(menuFrame, "Smoothie '" + smoothie.getNombre() + "' añadido al carrito.");
                 } else {
                     JOptionPane.showMessageDialog(menuFrame, "Por favor, selecciona un smoothie primero.");

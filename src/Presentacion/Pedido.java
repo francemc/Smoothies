@@ -24,7 +24,7 @@ public abstract class Pedido {
 	public abstract void agregarProducto(String idBatido);
 	public abstract void eliminarProducto(String idBatido);
 	public abstract void vaciarCarrito();
-	
+
 	public int getUnidades() {
 		return unidades;
 	}
@@ -65,4 +65,6 @@ public abstract class Pedido {
 	public int getId() {
 		return idPedido;
 	}
+
+	public abstract void sumarBatido(int precio) ;
 }

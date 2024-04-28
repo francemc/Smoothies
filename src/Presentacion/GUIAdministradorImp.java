@@ -112,25 +112,16 @@ public class GUIAdministradorImp extends GUIAdministrador {
             
              TableModel tableModel = new DefaultTableModel(values.toArray(new Object[][] {}), columns.toArray());
           // Crear un renderizador de celdas personalizado para agregar un botón a cada fila
-             
-            
-          
 
               JTable table = new JTable(tableModel);
               table.getColumn("Estado").setCellRenderer(new ButtonRenderer());
               table.getColumn("Estado").setCellEditor(new ButtonEditor(new JCheckBox()));
-
-
-              
-
-       
       
 //             for (int c = 0; c < table.getColumnCount(); c++)
 //             {
 //              Class<?> col_class = table.getColumnClass(c);
 //              table.setDefaultEditor(col_class, null); // remove editor
-//             }
-             
+//             }           
             
             // Mostrar la lista de pedidos en un JOptionPane
             JOptionPane.showMessageDialog(null, new JScrollPane(table), "Lista de ingredientes", JOptionPane.PLAIN_MESSAGE);

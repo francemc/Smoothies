@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class GUIProductosImp extends GUIProductos {
 
     private Controlador controlador;
@@ -17,8 +18,12 @@ public class GUIProductosImp extends GUIProductos {
     private List<TransferProducto> listaIngredientes;
     private JLabel totalUnidadesLabel;
     private int totalUnidades;
+    private Pedido pedido;
+
 
     public GUIProductosImp(Controlador controlador) {
+        this.pedido = Pedido.getInstancia();
+
         this.controlador = controlador;
         this.listaIngredientes = new ArrayList<>();
         this.totalUnidades = 0;
@@ -35,6 +40,28 @@ public class GUIProductosImp extends GUIProductos {
         // Crear un JPanel para contener todo el contenido
         JPanel contentPanel = new JPanel(new BorderLayout());
 
+        // Crear un JPanel para los controles de tamaño del batido y tipo de leche
+        JPanel controlsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+        // Componentes para el tamaño del batido
+        JLabel sizeLabel = new JLabel("Tamaño del batido:");
+        String[] sizes = {"Pequeño", "Mediano", "Grande"};
+        JComboBox<String> sizeComboBox = new JComboBox<>(sizes);
+
+        // Componentes para el tipo de leche
+        JLabel milkLabel = new JLabel("Tipo de leche:");
+        String[] milkTypes = {"Entera", "Desnatada", "Semi-desnatada"};
+        JComboBox<String> milkComboBox = new JComboBox<>(milkTypes);
+
+        // Agregar componentes al panel de controles
+        controlsPanel.add(sizeLabel);
+        controlsPanel.add(sizeComboBox);
+        controlsPanel.add(milkLabel);
+        controlsPanel.add(milkComboBox);
+
+        // Agregar el panel de controles al JPanel de contenido
+        contentPanel.add(controlsPanel, BorderLayout.NORTH);
+
         // Crear un JPanel para la lista de ingredientes
         JPanel listaPanel = new JPanel(new GridBagLayout());
 
@@ -46,10 +73,8 @@ public class GUIProductosImp extends GUIProductos {
         // Calcular el ancho máximo de los nombres de los productos
         int maxWidth = 0;
         for (TransferProducto producto : listaIngredientes) {
-        	
             JLabel tempLabel = new JLabel(producto.getNombre());
             maxWidth = Math.max(maxWidth, tempLabel.getPreferredSize().width);
-        	
         }
 
         // Agregar la lista de ingredientes al JPanel
@@ -60,14 +85,20 @@ public class GUIProductosImp extends GUIProductos {
         gbc.gridx = 0;
         gbc.gridy = 0;
 
+        StringBuilder ingredientesString = new StringBuilder();
+
         for (TransferProducto producto : listaIngredientes) {
-        	
+            final TransferProducto currentProducto = producto; // Captura la referencia final al producto actual
+
             JPanel productoPanel = new JPanel(new BorderLayout());
             JLabel nombreLabel = new JLabel(producto.getNombre());
             // Establecer el mismo ancho mínimo para todos los nombres de productos
             nombreLabel.setPreferredSize(new Dimension(maxWidth, nombreLabel.getPreferredSize().height));
+
             JTextField contadorTextField = new JTextField("0", 3); // Campo de texto para el contador individual
             JButton addButton = new JButton("+");
+            JButton removeButton = new JButton("-");
+
             addButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -79,15 +110,16 @@ public class GUIProductosImp extends GUIProductos {
 
                         totalUnidades++;
                         totalUnidadesLabel.setText("Total ingredientes: " + totalUnidades);
+
+                        // Añadir el ingrediente al string
+                        ingredientesString.append(currentProducto.getNombre()).append("-");
                     }
                     else {
                         JOptionPane.showMessageDialog(menuFrame, "No se pueden agregar más de 5 ingredientes", "Error", JOptionPane.ERROR_MESSAGE); 
                     }
                 }
-                
-            
             });
-            JButton removeButton = new JButton("-");
+
             removeButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -99,9 +131,17 @@ public class GUIProductosImp extends GUIProductos {
 
                         totalUnidades--;
                         totalUnidadesLabel.setText("Total ingredientes: " + totalUnidades);
+
+                        // Quitar el ingrediente del string
+                        String nombreProducto = currentProducto.getNombre();
+                        int index = ingredientesString.indexOf(nombreProducto);
+                        if (index != -1) {
+                            ingredientesString.delete(index, index + nombreProducto.length() + 1); // +1 para eliminar también el "-"
+                        }
                     }
                 }
             });
+
             // Agregar componentes al panel de producto
             JPanel buttonsPanel = new JPanel(new GridLayout(1, 2));
             buttonsPanel.add(removeButton);
@@ -134,8 +174,88 @@ public class GUIProductosImp extends GUIProductos {
             }
         });
 
-        // Crear un botón para añadir
-        JButton addButton = new JButton("Añadir");
+    
+     // Crear un botón para añadir ingredientes
+        JButton addButton = new JButton("Siguiente");
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Crear un nuevo JFrame para el panel de selección
+                JFrame selectFrame = new JFrame("Seleccionar Tamaño del Batido y Tipo de Leche");
+                selectFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                selectFrame.setSize(400, 200);
+                selectFrame.setLocationRelativeTo(null);
+
+                // Crear un JPanel para el contenido del panel de selección
+                JPanel selectPanel = new JPanel(new GridLayout(3, 2));
+
+                // Componentes para el tamaño del batido
+                JLabel sizeLabel = new JLabel("Tamaño del batido:");
+                String[] sizes = {"Pequeño", "Mediano", "Grande"};
+                JComboBox<String> sizeComboBox = new JComboBox<>(sizes);
+
+                // Componentes para el tipo de leche
+                JLabel milkLabel = new JLabel("Tipo de leche:");
+                String[] milkTypes = {"Entera", "Desnatada", "Semi-desnatada"};
+                JComboBox<String> milkComboBox = new JComboBox<>(milkTypes);
+
+                // Agregar componentes al panel de selección
+                selectPanel.add(sizeLabel);
+                selectPanel.add(sizeComboBox);
+                selectPanel.add(milkLabel);
+                selectPanel.add(milkComboBox);
+
+                // Crear un botón para volver atrás
+                JButton backButton = new JButton("Volver Atrás");
+                backButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        // Cerrar el panel de selección
+                        selectFrame.dispose();
+                    }
+                });
+                selectPanel.add(backButton);
+
+                // Crear un botón para finalizar
+                JButton finishButton = new JButton("Finalizar");
+                finishButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        // Obtener el tamaño del batido seleccionado
+                        String selectedSize = (String) sizeComboBox.getSelectedItem();
+
+                        // Obtener el tipo de leche seleccionado
+                        String selectedMilk = (String) milkComboBox.getSelectedItem();
+
+                        String producto = "1-" + selectedSize + "-" + selectedMilk + "(" + ingredientesString + ")";
+                        
+                        
+                        pedido.agregarProducto(producto);
+                        
+                        if(selectedSize == "Pequeño") {
+                        	pedido.sumarBatido(4);
+                        }
+                        else if(selectedSize == "Mediano") {
+                        	pedido.sumarBatido(5);
+                        }
+                        else {
+                        	pedido.sumarBatido(6);
+                        }
+                        
+                        menuFrame.dispose();
+                        
+                        selectFrame.dispose();
+                    }
+                });
+                selectPanel.add(finishButton);
+
+                // Agregar el panel de selección al JFrame
+                selectFrame.add(selectPanel);
+                selectFrame.setVisible(true);
+            }
+        });
+
+
 
         // Crear un panel para contener los botones
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -148,8 +268,7 @@ public class GUIProductosImp extends GUIProductos {
         // Agregar el JPanel de contenido al JFrame principal
         menuFrame.add(contentPanel);
         menuFrame.setVisible(true);
-    
-}
+    }
 
     @Override
     public void actualizar(int evento, Object datos) {
