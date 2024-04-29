@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.DefaultCellEditor;
@@ -73,15 +74,17 @@ public class GUIAdministradorImp extends GUIAdministrador {
 
         botonPedidos.addActionListener(e -> {
             // Obtener la lista de pedidos del controlador
-            List<TransferPedido> listaPedidos = cntr.devolverLista("pedidos",false);
-            
+        	 Iterator<TransferPedido> listaPedidos = contr.obtenerIteradorLista("pedidos",false);
+          	
             // Crear un arreglo de strings para almacenar la representación de los pedidos
-            String[] pedidosArray = new String[listaPedidos.size()];
-            for (int i = 0; i < listaPedidos.size(); i++) {
-                TransferPedido pedido = listaPedidos.get(i);
+            String[] pedidosArray = new String[100];
+            int i = 0  ; 
+            while(listaPedidos.hasNext()) {
+                TransferPedido pedido = listaPedidos.next();
                 // Formatear la representación del pedido como desees
                 String pedidoStr = "ID: " + pedido.getIdPedido() + " - Batidos: " + pedido.getBatidos();
                 pedidosArray[i] = pedidoStr;
+                i++ ; 
             }
             
             // Crear una JList con los pedidos
@@ -93,21 +96,23 @@ public class GUIAdministradorImp extends GUIAdministrador {
         botonstock.addActionListener(e->{
         	 List<String> columns = new ArrayList<String>();
              List<String[]> values = new ArrayList<String[]>();
-             List<TransferProducto> listaIngredientes = contr.devolverLista("ingredientes",false);
+             Iterator<TransferProducto> listaIngredientes = contr.obtenerIteradorLista("ingredientes",false);
          	
              columns.add("Ingrediente");
              columns.add("Estado");
            
 
-             for (int i = 0; i <  listaIngredientes.size(); i++) {
-            	 TransferProducto ing = listaIngredientes.get(i);
+             
+             while(listaIngredientes.hasNext()) {
+            	 TransferProducto ing  = listaIngredientes.next() ; 
+            	 String nombre = ing.getNombre() ; 
             	 String ingdisp = "Activo"  ; 
                  if(!ing.getDisp()) {
                  	ingdisp = "Desactivado" ;
                  }
-             
-                 values.add(new String[] {ing.getNombre(),ingdisp});
+            	 values.add(new String[] {nombre,ingdisp}); 
              }
+          
             
              TableModel tableModel = new DefaultTableModel(values.toArray(new Object[][] {}), columns.toArray());
 

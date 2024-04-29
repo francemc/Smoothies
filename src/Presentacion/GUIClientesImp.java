@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class GUIClientesImp extends GUIClientes {
@@ -115,12 +116,13 @@ public class GUIClientesImp extends GUIClientes {
             verPedidosButton.addActionListener(e1 -> {
             	String idCliente = controlador.buscarIdCliente(datos);
                 // Obtener la lista de pedidos del usuario actual del controlador
-                List<TransferPedido> listaPedidos = controlador.devolverLista(idCliente,false); 
+                Iterator<TransferPedido> listaPedidos = controlador.obtenerIteradorLista(idCliente,false); 
                 
                 // Crear un arreglo de strings para almacenar la representación de los pedidos
-                String[] pedidosArray = new String[listaPedidos.size()];
-                for (int i = 0; i < listaPedidos.size(); i++) {
-                    TransferPedido pedidoUsuario = listaPedidos.get(i);
+                String[] pedidosArray = new String[100];
+                int i = 0  ; 
+                while(listaPedidos.hasNext()) {
+                    TransferPedido pedidoUsuario = listaPedidos.next();
                     // Formatear la representación del pedido como desees
                     String pedidoStr = "ID: " + pedidoUsuario.getIdPedido() + " - Batidos: " + pedidoUsuario.getBatidos();
                     pedidosArray[i] = pedidoStr;

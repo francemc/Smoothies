@@ -1,6 +1,7 @@
 package Presentacion;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -146,9 +147,12 @@ public class ControladorImp extends Controlador{
 		}
 		
 	}
-	
+	public <T> Iterator<T> obtenerIteradorLista(String producto, boolean especifico) {
+        List<T> lista = devolverLista(producto, especifico);
+        return new IteradorDeLista<>(lista);
+    }
 	@SuppressWarnings("unchecked")
-	public <T>List<T> devolverLista(String producto,boolean especifico){
+protected <T>List<T> devolverLista(String producto,boolean especifico){
 		
 		if (producto == "ingredientes"){
 			SAProductos saProductos = new SAProductosImp();
@@ -164,7 +168,7 @@ public class ControladorImp extends Controlador{
 			return (List<T>) listaSmoothies;
 		}
 		else if(producto == "pedidos"){
-			SAPedidos saPedidos = new SAPedidosImp();
+ 			SAPedidos saPedidos = new SAPedidosImp();
 			List<TransferPedido> listaPedidos = saPedidos.listaTodosPedidos();
 			return (List<T>) listaPedidos;
 		}

@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -16,7 +17,7 @@ public class GUIProductosImp extends GUIProductos {
 
     private Controlador controlador;
     private JFrame menuFrame;
-    private List<TransferProducto> listaIngredientes;
+    
     private JLabel totalUnidadesLabel;
     private int totalUnidades;
     private TransferPedido pedido;
@@ -26,11 +27,12 @@ public class GUIProductosImp extends GUIProductos {
         this.pedido = new TransferPedido() ; 
 
         this.controlador = controlador;
-        this.listaIngredientes = new ArrayList<>();
+        
         this.totalUnidades = 0;
-
+        Iterator<TransferProducto> it = controlador.obtenerIteradorLista("ingredientes", true) ;
         // Obtener la lista de ingredientes desde el controlador
-        this.listaIngredientes = controlador.devolverLista("ingredientes",true);
+        
+        
 
         // Crear el JFrame principal
         menuFrame = new JFrame("Smoothie Personalizado");
@@ -73,11 +75,7 @@ public class GUIProductosImp extends GUIProductos {
 
         // Calcular el ancho máximo de los nombres de los productos
         int maxWidth = 0;
-        for (TransferProducto producto : listaIngredientes) {
-            JLabel tempLabel = new JLabel(producto.getNombre());
-            maxWidth = Math.max(maxWidth, tempLabel.getPreferredSize().width);
-        }
-
+      
         // Agregar la lista de ingredientes al JPanel
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.WEST;
@@ -88,7 +86,10 @@ public class GUIProductosImp extends GUIProductos {
 
         StringBuilder ingredientesString = new StringBuilder();
 
-        for (TransferProducto producto : listaIngredientes) {
+        while(it.hasNext()) {
+    		TransferProducto producto =  it.next() ;
+	        JLabel tempLabel = new JLabel(producto.getNombre());
+	        maxWidth = Math.max(maxWidth, tempLabel.getPreferredSize().width);
             final TransferProducto currentProducto = producto; // Captura la referencia final al producto actual
 
             JPanel productoPanel = new JPanel(new BorderLayout());

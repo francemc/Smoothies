@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class GUIMenuImp extends GUIMenu {
@@ -24,7 +25,14 @@ public class GUIMenuImp extends GUIMenu {
         this.pedido = pedido; 
         this.controlador = controlador;
         this.listaSmoothies = new ArrayList<>();
-        this.listaSmoothies = controlador.devolverLista("smoothies",false);
+        Iterator<TransferSmoothies> it = controlador.obtenerIteradorLista("smoothies",false);
+        smoothiesListModel = new DefaultListModel<>();
+        while(it.hasNext()) {
+        	TransferSmoothies smoothie = it.next() ; 
+        	listaSmoothies.add(smoothie) ; 
+        	smoothiesListModel.addElement(smoothie.getNombre() + " ->  " + smoothie.getDescripcion());
+        	 
+        }
 
         menuFrame = new JFrame("Menu Smoothies");
         menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,11 +51,8 @@ public class GUIMenuImp extends GUIMenu {
         gbc.gridx = 0;
         gbc.gridy = 0;
 
-        // Crear modelo y lista de smoothies
-        smoothiesListModel = new DefaultListModel<>();
-        for (TransferSmoothies smoothie : listaSmoothies) {
-            smoothiesListModel.addElement(smoothie.getNombre() + " ->  " + smoothie.getDescripcion());
-        }
+        
+       
         smoothiesList = new JList<>(smoothiesListModel);
         smoothiesList.setFont(new Font("Arial", Font.BOLD, 16));
         smoothiesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
