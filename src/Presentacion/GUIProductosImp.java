@@ -2,6 +2,7 @@ package Presentacion;
 
 import javax.swing.*;
 
+import Negocio.TransferPedido;
 import Negocio.TransferProducto;
 
 import java.awt.*;
@@ -18,11 +19,11 @@ public class GUIProductosImp extends GUIProductos {
     private List<TransferProducto> listaIngredientes;
     private JLabel totalUnidadesLabel;
     private int totalUnidades;
-    private Pedido pedido;
+    private TransferPedido pedido;
 
 
-    public GUIProductosImp(Controlador controlador) {
-        this.pedido = Pedido.getInstancia();
+    public GUIProductosImp(Controlador controlador, TransferPedido pedido) {
+        this.pedido = new TransferPedido() ; 
 
         this.controlador = controlador;
         this.listaIngredientes = new ArrayList<>();

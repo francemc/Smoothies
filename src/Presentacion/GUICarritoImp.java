@@ -1,5 +1,8 @@
 package Presentacion;
 import javax.swing.*;
+
+import Negocio.TransferPedido;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,11 +13,12 @@ public class GUICarritoImp extends GUICarrito {
     private JPanel panel;
     private JTextField totalField;
     private JList<String> productosList;
-    private Pedido pedido;
+   
+    private TransferPedido ped ; 
 
-    public GUICarritoImp(Controlador controlador, Object datos) {
+    public GUICarritoImp(Controlador controlador, Object datos, TransferPedido pedido) {
         this.controlador = controlador;
-        this.pedido = Pedido.getInstancia();
+        this.ped =  pedido ; 
      
         
         
@@ -42,10 +46,12 @@ public class GUICarritoImp extends GUICarrito {
         scrollPane.setPreferredSize(new Dimension(200, 200));
 
         // Mostrar cada producto en la lista
-        String productosStr = pedido.getBatidos();
-        String[] productos = productosStr.split(",");
-        for (String producto : productos) {
-            productosListModel.addElement(producto);
+        String productosStr = ped.getBatidos();
+	        if(productosStr != null ) {
+	        	String[] productos = productosStr.split(",");
+	        for (String producto : productos) {
+	            productosListModel.addElement(producto);
+        }
         }
 
      // Crear un botón para eliminar un producto del carrito
@@ -55,11 +61,11 @@ public class GUICarritoImp extends GUICarrito {
             public void actionPerformed(ActionEvent e) {
                 int selectedIndex = productosList.getSelectedIndex();
                 if (selectedIndex != -1) {
-                    pedido.eliminarProducto(productosListModel.elementAt(selectedIndex));
+                    ped.eliminarProducto(productosListModel.elementAt(selectedIndex));
                     productosListModel.remove(selectedIndex);
                     
                     // Actualizar el campo de texto con el nuevo precio del pedido
-                    totalField.setText(String.valueOf(pedido.getPrecio()));
+                    totalField.setText(String.valueOf(ped.getPrecio()));
                 }
             }
         });
@@ -74,14 +80,14 @@ public class GUICarritoImp extends GUICarrito {
 
         // Crear un JLabel para mostrar el total del pedido
         JLabel totalLabel = new JLabel("Total:");
-        totalField = new JTextField(String.valueOf(pedido.getPrecio()));
+        totalField = new JTextField(String.valueOf(ped.getPrecio()));
         totalField.setEditable(false);
 
         // Crear un botón para tramitar el pedido
         JButton tramitarButton = new JButton("Tramitar");
         tramitarButton.addActionListener(e -> {
                	
-        	controlador.accion(Eventos.CREAR_PEDIDO, pedido);       	
+        	controlador.accion(Eventos.CREAR_PEDIDO, ped);       	
             System.exit(0);
         });
 

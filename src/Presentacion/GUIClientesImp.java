@@ -19,12 +19,11 @@ public class GUIClientesImp extends GUIClientes {
 	private JPanel panel; // Variable de instancia para el panel principal
 	private Controlador controlador; // Agregar referencia al controlador
 
-	private Pedido pedido;
+	private TransferPedido pedido;
 	
     public GUIClientesImp(Controlador controlador,Object datos) {
         this.controlador = controlador;
-
-        this.pedido = Pedido.getInstancia();
+        this.pedido = new TransferPedido();
         pedido.setIdUsuario(controlador.buscarIdCliente(datos));
         pedido.setId((int) (Math.random() * 900000) + 100000);
      
@@ -61,14 +60,14 @@ public class GUIClientesImp extends GUIClientes {
         
         opcion1Button.addActionListener(e -> {
 
-        	GUIMenuImp guiMenu = new GUIMenuImp(controlador,datos);
+        	GUIMenuImp guiMenu = new GUIMenuImp(controlador,datos,pedido);
             //GUI Para pedir batidos
         });
 
         opcion2Button.addActionListener(e -> {
             // Lógica para Smoothies Personalizados
      	   
-     	    GUIProductosImp guiProductos = new GUIProductosImp(controlador);
+     	    GUIProductosImp guiProductos = new GUIProductosImp(controlador,pedido);
 
         });
 
@@ -199,7 +198,7 @@ public class GUIClientesImp extends GUIClientes {
     public void actualizar(int evento, Object datos) {
     	switch (evento) {
         	case (Eventos.VER_CARRITO): {
-        		GUICarritoImp guiCarrito = new GUICarritoImp(controlador,datos); 		
+        		GUICarritoImp guiCarrito = new GUICarritoImp(controlador,datos,pedido); 		
         	break;
         	}
         }

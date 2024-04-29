@@ -98,7 +98,6 @@ public class GUIAdministradorImp extends GUIAdministrador {
              columns.add("Ingrediente");
              columns.add("Estado");
            
-            
 
              for (int i = 0; i <  listaIngredientes.size(); i++) {
             	 TransferProducto ing = listaIngredientes.get(i);
@@ -111,21 +110,12 @@ public class GUIAdministradorImp extends GUIAdministrador {
              }
             
              TableModel tableModel = new DefaultTableModel(values.toArray(new Object[][] {}), columns.toArray());
-          // Crear un renderizador de celdas personalizado para agregar un botón a cada fila
-<<<<<<< HEAD
-=======
-             
->>>>>>> 1450b5b9b5a957d19a081707f8d9117dbe1883ed
 
               JTable table = new JTable(tableModel);
               table.getColumn("Estado").setCellRenderer(new ButtonRenderer());
               table.getColumn("Estado").setCellEditor(new ButtonEditor(new JCheckBox()));
       
-//             for (int c = 0; c < table.getColumnCount(); c++)
-//             {
-//              Class<?> col_class = table.getColumnClass(c);
-//              table.setDefaultEditor(col_class, null); // remove editor
-//             }           
+//             
             
             // Mostrar la lista de pedidos en un JOptionPane
             JOptionPane.showMessageDialog(null, new JScrollPane(table), "Lista de ingredientes", JOptionPane.PLAIN_MESSAGE);

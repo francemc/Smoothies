@@ -1,12 +1,14 @@
 package Presentacion;
 
+import Negocio.TransferPedido;
+
 public abstract class GUIProductos {
 
 	private static GUIProductos instancia = null;
 	
-	public static GUIProductos getInstancia(Controlador controlador) {
+	public static GUIProductos getInstancia(Controlador controlador,TransferPedido pedido) {
 		if(instancia == null) 
-			instancia = new GUIProductosImp(controlador);
+			instancia = new GUIProductosImp(controlador,pedido);
 		return instancia;
 	}
 	

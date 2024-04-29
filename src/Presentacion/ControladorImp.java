@@ -98,7 +98,7 @@ public class ControladorImp extends Controlador{
 		}
 		
 		case (Eventos.CREAR_PEDIDO):{
-			Pedido ids = (Pedido) datos;
+			TransferPedido ids = (TransferPedido) datos;
 			//SACAR DE IDS LOS DATOS PARA CREAR EL PEDIDO
 			/*
 			 * protected int idPedido;
@@ -130,7 +130,7 @@ public class ControladorImp extends Controlador{
 				disponibilidad = false ; 
 			}
 				
-			if(saProductos.cambiarestado(nombre,disponibilidad)) {
+			if(saProductos.cambiarestado(nombre,!disponibilidad)) {
 				JOptionPane.showMessageDialog(null, "Cambio de estado realizado con exito");
 			}else {
 				JOptionPane.showMessageDialog(null, "Error al realizar el cambio");

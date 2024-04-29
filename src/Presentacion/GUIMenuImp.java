@@ -2,6 +2,7 @@ package Presentacion;
 
 import javax.swing.*;
 
+import Negocio.TransferPedido;
 import Negocio.TransferSmoothies;
 
 import java.awt.*;
@@ -16,11 +17,11 @@ public class GUIMenuImp extends GUIMenu {
     private List<TransferSmoothies> listaSmoothies;
     private DefaultListModel<String> smoothiesListModel;
     private JList<String> smoothiesList;
-    private Pedido pedido;
+    private TransferPedido pedido;
     private JComboBox<String> sizeComboBox; // Declaración del JComboBox
 
-    public GUIMenuImp(Controlador controlador, Object datos) {
-        this.pedido = Pedido.getInstancia();
+    public GUIMenuImp(Controlador controlador, Object datos,TransferPedido pedido) {
+        this.pedido = pedido; 
         this.controlador = controlador;
         this.listaSmoothies = new ArrayList<>();
         this.listaSmoothies = controlador.devolverLista("smoothies",false);
@@ -137,7 +138,7 @@ public class GUIMenuImp extends GUIMenu {
     public void actualizar(int evento, Object datos) {
         switch (evento) {
             case (Eventos.VER_CARRITO): {
-                GUICarritoImp guiCarrito = new GUICarritoImp(controlador, datos);
+                GUICarritoImp guiCarrito = new GUICarritoImp(controlador, datos,pedido);
                 break;
             }
         }

@@ -1,12 +1,14 @@
 package Presentacion;
 
+import Negocio.TransferPedido;
+
 public abstract class GUIMenu {
 
 	private static GUIMenu instancia = null;
 	private static Object datos = null;
-	public static GUIMenu getInstancia(Controlador controlador,Object datos ) {
+	public static GUIMenu getInstancia(Controlador controlador,Object datos, TransferPedido pedido) {
 		if(instancia == null) 
-			instancia = new GUIMenuImp(controlador,datos);
+			instancia = new GUIMenuImp(controlador,datos,pedido);
 		return instancia;	
 		
 	}
