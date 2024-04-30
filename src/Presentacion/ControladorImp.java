@@ -126,7 +126,7 @@ public class ControladorImp extends Controlador{
 			String[] parts = dato.split(",");
 			String nombre = parts[0];
 			String disp = parts[1]; 
-			if(disp == "Activo") { 
+			if(disp.equals("Activo")) { 
 				disponibilidad = true  ; 
 			}
 			else {

@@ -33,7 +33,9 @@ public class GUIAdministradorImp extends GUIAdministrador {
 	private JPanel panel  ; 
 	private Object datos  ;
 	private int pos; 
+	private  JFrame Frame ; 
 	
+	@SuppressWarnings("static-access")
 	public GUIAdministradorImp(Controlador contr ) {
 		this.cntr = contr  ; 
 		
@@ -123,8 +125,17 @@ public class GUIAdministradorImp extends GUIAdministrador {
 //             
             
             // Mostrar la lista de pedidos en un JOptionPane
-            JOptionPane.showMessageDialog(null, new JScrollPane(table), "Lista de ingredientes", JOptionPane.PLAIN_MESSAGE);
-        	//sacar lista ingredientes
+             Frame = new JFrame () ; 
+             
+             Frame.setSize(550, 400); // Tamaño del menú
+             Frame.setLocationRelativeTo(null);
+            JPanel jp = new JPanel() ; 
+            jp.add(new JScrollPane(table)) ; 
+           
+            Frame.getContentPane().add(new JScrollPane(jp)) ; 
+            Frame.setVisible(true) ; 
+           // jp.showMessageDialog(this.panel, new JScrollPane(table), "Lista de ingredientes", JOptionPane.PLAIN_MESSAGE);
+        	//sacar lista ingredienetes
             
         
         });
@@ -231,6 +242,9 @@ public class GUIAdministradorImp extends GUIAdministrador {
 
                 if (respuesta == JOptionPane.YES_OPTION) {
                 	cntr.accion(Eventos.CAMBIAR_DISPONIBILIDAD,datos);
+                	Frame.setVisible(false);
+
+                	
    
                 } 
 	        }
