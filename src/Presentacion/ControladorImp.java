@@ -14,6 +14,7 @@ import Negocio.SAProductos;
 import Negocio.SAProductosImp;
 import Negocio.SASmoothies;
 import Negocio.SASmoothiesImp;
+import Negocio.TransferCliente;
 import Negocio.TransferPedido;
 import Negocio.TransferProducto;
 import Negocio.TransferSmoothies;
@@ -37,10 +38,11 @@ public class ControladorImp extends Controlador{
 			String correo = new String(ids.get("correo"));
 			String contraseña = new String(ids.get("contraseña"));
 			String idUsuario = new String(ids.get("idUsuario"));
+			TransferCliente cliente = new TransferCliente(idUsuario, nombre, correo , contraseña) ; 
 
 			
 			SAClientes saClientes = FactoriaSA.getInstancia().nuevoSAClientes();
-			if(saClientes.crearUsuario(nombre, correo, contraseña, idUsuario)) {
+			if(saClientes.crearUsuario(cliente)) {
 				JOptionPane.showMessageDialog(null,"Usuario creado correctamente \n      id : "+ idUsuario);
 				break;
 			}

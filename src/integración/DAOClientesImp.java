@@ -44,9 +44,9 @@ public class DAOClientesImp implements DAOCliente{
 	}
 
 	@Override
-	public boolean registrarCliente(String nombre, String correo, String contraseña,String idCliente) throws NoSuchAlgorithmException {
+	public boolean registrarCliente(TransferCliente cliente) throws NoSuchAlgorithmException {
 		TransferCliente tE;
-	    tE = this.buscarCliente(correo);
+	    tE = this.buscarCliente(cliente.getCorreo());
 	    String url = "jdbc:mysql://localhost:3306/smoothies";
 	    String usuario = "root";
 	    String contraseña2 = "contraseñaSQL";
@@ -60,10 +60,10 @@ public class DAOClientesImp implements DAOCliente{
 	            	            	
 	                String query = "INSERT INTO usuario (idUsuario ,nombre, correo, password) VALUES (?, ?, ?, ?)";
 	                PreparedStatement stmt = conexion.prepareStatement(query);
-	                stmt.setString(1, idCliente);
-	                stmt.setString(2, nombre);
-	                stmt.setString(3, correo);
-	                stmt.setString(4, contraseña);
+	                stmt.setString(1, cliente.getId());
+	                stmt.setString(2, cliente.getNombre());
+	                stmt.setString(3, cliente.getCorreo());
+	                stmt.setString(4, cliente.getContraseña());
 	             
 	                int resultado = stmt.executeUpdate();
 	                if (resultado > 0) {

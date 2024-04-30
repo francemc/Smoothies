@@ -9,11 +9,11 @@ import integración.FactoriaDAO;
 
 public class SAClientesImp implements SAClientes {
 
-	public boolean crearUsuario(String nombre, String correo, String contraseña, String idUsuario) {
+	public boolean crearUsuario(TransferCliente cliente) {
 		DAOCliente daoCliente = (DAOCliente) FactoriaDAO.getInstancia().nuevoDAOClientes();
 		boolean ok = false;
 		try {
-			ok = daoCliente.registrarCliente(nombre, correo, contraseña, idUsuario);
+			ok = daoCliente.registrarCliente(cliente);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
