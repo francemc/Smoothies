@@ -8,6 +8,19 @@ public class TransferPedido extends DAOPedidosImp {
     protected int precio;
     protected int unidades;
     protected String idUsuario;
+    
+    public TransferPedido() {
+    	
+    	
+    } ;
+    
+    public TransferPedido(int idPedido, String batidos, int precio, int unidades, String idUsuario){
+    	this.idPedido = idPedido;
+        this.batidos = batidos;
+        this.precio = precio;
+        this.unidades = unidades;
+        this.idUsuario = idUsuario;
+    }
 
     // Getters
     public int getIdPedido() {

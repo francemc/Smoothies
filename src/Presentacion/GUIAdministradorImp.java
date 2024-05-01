@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,11 +15,13 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -33,14 +36,15 @@ public class GUIAdministradorImp extends GUIAdministrador {
 	private JPanel panel  ; 
 	private Object datos  ;
 	private int pos; 
-	private  JFrame Frame ; 
-	
+	private  JFrame menuFrame ; 
+	private  JFrame Frame ;
+
 	@SuppressWarnings("static-access")
 	public GUIAdministradorImp(Controlador contr ) {
 		this.cntr = contr  ; 
 		
 		
-		JFrame menuFrame = new JFrame("Menú");
+		menuFrame = new JFrame("Menú");
         menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         menuFrame.setSize(800, 400); // Tamaño del menú
         menuFrame.setLocationRelativeTo(null); // Centrar en la pantalla
@@ -54,10 +58,10 @@ public class GUIAdministradorImp extends GUIAdministrador {
         // Crear botones para las opciones principales del menú
         JButton botonPedidos = new JButton("Pedidos");
         JButton botonstock= new JButton("Stock");
-        JButton Button3 = new JButton("Añadir") ; 
+        JButton botonAñadir = new JButton("Añadir") ; 
         mainButtonsPanel.add(botonPedidos);
         mainButtonsPanel.add(botonstock);
-        mainButtonsPanel.add(Button3);
+        mainButtonsPanel.add(botonAñadir);
 
         // Agregar el panel de los botones principales al panel del menú en la parte central
         menuPanel.add(mainButtonsPanel, BorderLayout.CENTER);
@@ -105,7 +109,7 @@ public class GUIAdministradorImp extends GUIAdministrador {
            
 
              
-             while(listaIngredientes.hasNext()) {
+             while(listaIngredientes.hasNext() && listaIngredientes != null) {
             	 TransferProducto ing  = listaIngredientes.next() ; 
             	 String nombre = ing.getNombre() ; 
             	 String ingdisp = "Activo"  ; 
@@ -125,20 +129,33 @@ public class GUIAdministradorImp extends GUIAdministrador {
 //             
             
             // Mostrar la lista de pedidos en un JOptionPane
-             Frame = new JFrame () ; 
-             
+             Frame = new JFrame () ;
              Frame.setSize(550, 400); // Tamaño del menú
              Frame.setLocationRelativeTo(null);
-            JPanel jp = new JPanel() ; 
-            jp.add(new JScrollPane(table)) ; 
+             JPanel jp = new JPanel() ; 
+             jp.add(new JScrollPane(table)) ; 
            
-            Frame.getContentPane().add(new JScrollPane(jp)) ; 
-            Frame.setVisible(true) ; 
+             Frame.getContentPane().add(new JScrollPane(jp)) ; 
+             Frame.setVisible(true) ; 
            // jp.showMessageDialog(this.panel, new JScrollPane(table), "Lista de ingredientes", JOptionPane.PLAIN_MESSAGE);
         	//sacar lista ingredienetes
             
         
         });
+        botonAñadir.addActionListener(e -> {
+        	JFrame añadirFrame= new JFrame () ; 
+            
+        	añadirFrame.setSize(800, 400); // Tamaño del menú
+        	añadirFrame.setLocationRelativeTo(null);
+        	
+        	JPanel jp= mostrarPanel() ; 
+           
+        	añadirFrame.getContentPane().add(new JScrollPane(jp)) ; 
+        	añadirFrame.setVisible(true) ; 
+        	
+        	
+        	
+        }) ; 
 
 
         
@@ -152,6 +169,76 @@ public class GUIAdministradorImp extends GUIAdministrador {
         // Agregar el panel del menú al JFrame
         menuFrame.getContentPane().add(menuPanel);
         menuFrame.setVisible(true);
+	}
+	private JPanel mostrarPanel() {
+	
+		JPanel jp = new JPanel(new GridLayout(1, 2)) ; 
+        JButton Ingrediente = new JButton("Ingrediente") ; 
+        JButton Smoothie = new JButton("Smoothie") ;
+        
+       
+        Ingrediente.addActionListener( e ->{
+        	JFrame Frame1 = new JFrame() ; 
+        	JPanel accion  = mostrarPanelIngredientes() ; 
+        	Frame1.add(accion) ; 
+        	
+        	Frame1.setSize(300, 150);
+        	Frame1.setLocationRelativeTo(null);
+        	Frame1.setVisible(true) ; 
+        } ) ;
+        Smoothie.addActionListener(e ->{
+        	JFrame frame2 = new JFrame() ; 
+        	JPanel accion2 = mostrarPanelSmoothie() ; 
+        	frame2.add(accion2) ;
+     	   
+        }) ;
+       
+        jp.add(Ingrediente) ;
+        jp.add(Smoothie) ; 
+        
+        return jp ; 
+	}
+
+	private JPanel mostrarPanelIngredientes() {
+		JPanel Ingredientes = new JPanel() ; 
+		
+		JTextField nombreField = new JTextField(20);
+        JTextField caloríasField = new JTextField(20);
+        
+		Ingredientes.add(new JLabel("Nombre:"));
+		Ingredientes.add(nombreField);
+		Ingredientes.add(new JLabel("Calorías:"));
+		Ingredientes.add(caloríasField);
+       
+		String nombre = nombreField.getText();
+        String calorías = caloríasField.getText();
+       
+
+
+        // Utilizar el controlador para añadir un cliente
+        HashMap<String, String> datos = new HashMap<>();
+        datos.put("nombre", nombre);
+        datos.put("calorías", calorías);
+        
+        JButton Aceptar = new JButton("Aceptar") ; 
+        Aceptar.addActionListener(e ->{
+        	 cntr.accion(Eventos.AÑADIR_INGREDIENTES, datos);
+        
+        });
+      
+       
+        Ingredientes.add(Aceptar) ; 
+        Ingredientes.setVisible(true);
+        return Ingredientes ; 
+      
+	}
+
+	private JPanel  mostrarPanelSmoothie() {
+		JPanel smoothie = new JPanel() ; 
+		
+		return smoothie ; 
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -243,9 +330,6 @@ public class GUIAdministradorImp extends GUIAdministrador {
                 if (respuesta == JOptionPane.YES_OPTION) {
                 	cntr.accion(Eventos.CAMBIAR_DISPONIBILIDAD,datos);
                 	Frame.setVisible(false);
-
-                	
-   
                 } 
 	        }
 	        isPushed = false;

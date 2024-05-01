@@ -3,7 +3,7 @@ package Presentacion;
 import java.util.Iterator;
 import java.util.List;
 
-import Negocio.TransferProducto;
+
 
 public abstract class Controlador {
 	private static Controlador instancia = null;

@@ -9,7 +9,7 @@ public class Eventos {
 	final static public int CLIENTES_LIMPIAR = 0;
 	public static final int LISTA_INGREDIENTES = 4;
 	final static public int AÑADIR_SMOOTHIE_MENU = 5;
-	final static public int AÑADIR_SMOOTHIE_PERSONALIZADO = 6;
+	final static public int AÑADIR_INGREDIENTES= 6;
 	public static final int ELIMINAR_CLIENTE = 7;
 	public static final int VER_CARRITO = 9;
 	public static final int BUSCAR_ID_CLIENTE = 20;

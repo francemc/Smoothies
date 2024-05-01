@@ -9,6 +9,15 @@ public class TransferProducto extends DAOProductosImp{
 	protected int calorias;
 	protected boolean disponibilidad ; 
 	
+	public TransferProducto() {
+		
+	}
+	public TransferProducto(String nombre , int id , int calorias , boolean disponibilidad) {
+		this.nombre = nombre ; 
+		this.id = id  ; 
+		this.calorias = calorias ; 
+		this.disponibilidad = disponibilidad  ; 
+	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}

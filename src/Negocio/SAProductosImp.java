@@ -9,13 +9,13 @@ import integración.FactoriaDAO;
 public class SAProductosImp implements SAProductos {
 
 	@Override
-	public boolean crearProducto(String nombre, int id, int calorias) {
+	public boolean crearProducto(TransferProducto ing) {
 		DAOProductos daoProductos = (DAOProductos) FactoriaDAO.getInstancia().nuevoDAOProductos();
 		
 		boolean ok = false;
 		
 		try {
-			ok = daoProductos.añadirProducto(nombre, id, calorias);
+			ok = daoProductos.añadirProducto(ing);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

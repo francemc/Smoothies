@@ -7,7 +7,7 @@ import Negocio.TransferProducto;
 public interface DAOProductos {
 	public TransferProducto buscarProducto(String nombre);
 
-	public boolean añadirProducto(String nombre,int id, int calorias);
+	public boolean añadirProducto(TransferProducto ing);
 	
 	public List<TransferProducto> sacarListaIngredientes(boolean especifico);
 	public boolean cambiarEstado(String nombre, boolean disponibilidad); 

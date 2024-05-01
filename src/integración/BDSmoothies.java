@@ -1,6 +1,5 @@
 package integración;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,18 +8,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Negocio.TransferProducto;
-import Negocio.TransferSmoothies;
 
-public class DAOSmoothiesImp implements DAOSmoothies{
 
-	@Override
-	public TransferSmoothies buscarSmoothies(String nombre, int id) {
+public class BDSmoothies extends BD{
+	
+public static String buscarSmoothies(String nombre, int id) {
 		
-		TransferSmoothies tS = new TransferSmoothies();
-	    String url = "jdbc:mysql://localhost:3306/smoothies";
-	    String usuario = "root";
-	    String contraseña2 = "contraseñaSQL";
+	String tS = null  ; 
+	   
 		
 	    try {
 	    	// Registrar el driver de MySQL
@@ -32,11 +27,7 @@ public class DAOSmoothiesImp implements DAOSmoothies{
 	            stmt.setString(1, nombre);
 	            ResultSet rs = stmt.executeQuery();
 	            if (rs.next()) {
-	            	 tS.setId(rs.getInt("id"));
-	                 tS.setNombre(rs.getString("nombre"));	            	
-		             tS.setDescripcion(rs.getString("descripcion"));
-		             tS.setCalorias(rs.getInt("calorias"));
-
+	            	 tS = rs.getInt("id") + "," +rs.getString("nombre")+ "," +rs.getString("descripcion")+ "," + rs.getInt("calorias");
 	                return tS;
 	            } else {
 	                return null;
@@ -52,19 +43,17 @@ public class DAOSmoothiesImp implements DAOSmoothies{
 	    return tS;
 	}
 
-	@Override
-	public void añadirSmoothie(String nombre, List<TransferProducto> ingredientes, int id, int calorias) {
+	
+	public static void añadirSmoothie(String nombre, String listaing, int id, int calorias) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public List<TransferSmoothies> sacarListaSmoothies() {
 
-		List<TransferSmoothies> listaSmoothies = new ArrayList<>();
-		String url = "jdbc:mysql://localhost:3306/smoothies";
-        String usuario = "root";
-        String contraseña2 = "contraseñaSQL";
+	public static List<String> sacarListaSmoothies() {
+
+	List<String> listaSmoothies = new ArrayList<>();
+		
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -75,11 +64,7 @@ public class DAOSmoothiesImp implements DAOSmoothies{
                 ResultSet rs = stmt.executeQuery();
                 
                 while (rs.next()) {
-                    TransferSmoothies tS = new TransferSmoothies();
-                    tS.setId(rs.getInt("id"));
-                    tS.setNombre(rs.getString("nombre"));	            	
-	            	tS.setDescripcion(rs.getString("descripcion"));
-	            	tS.setCalorias(rs.getInt("calorias"));
+                    String tS = rs.getInt("id")+","+rs.getString("nombre")+","+rs.getString("descripcion")+","+rs.getInt("calorias");
                     listaSmoothies.add(tS);
                 }
             }

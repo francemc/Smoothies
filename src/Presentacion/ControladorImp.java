@@ -22,7 +22,7 @@ import Negocio.TransferSmoothies;
 
 public class ControladorImp extends Controlador{
 
-	@SuppressWarnings("removal")
+	
 	public void accion(int evento, Object datos) {
 		
 		switch (evento) {
@@ -89,9 +89,10 @@ public class ControladorImp extends Controlador{
 			HashMap<String, String> ids = (HashMap<String, String>) datos;
 			String correo = new String(ids.get("correo"));
 			String contraseña = new String(ids.get("contraseña"));
+			
 			SAClientes saClientes = FactoriaSA.getInstancia().nuevoSAClientes();
-
-			if(saClientes.borrarCliente(correo, contraseña)) {
+			TransferCliente cliente = new TransferCliente(null, null, correo , contraseña) ; 
+			if(saClientes.borrarCliente(cliente)) {
 				JOptionPane.showMessageDialog(null, "Eliminado con exito");
 			}else {
 				JOptionPane.showMessageDialog(null, "Error al eliminar el usuario");
@@ -111,7 +112,7 @@ public class ControladorImp extends Controlador{
     			protected String idUsuario;
 			 */		
 			SAPedidos saPedidos = FactoriaSA.getInstancia().nuevoSAPedidos();
-			if(saPedidos.crearPedido(ids.getId(), ids.getBatidos(), ids.getUnidades(), ids.getPrecio(), ids.getIdUsuario())) {
+			if(saPedidos.crearPedido(ids) ){
 				JOptionPane.showMessageDialog(null, "Pedido realizado con éxito, gracias por comprar con nosotros");
 			}else {
 				JOptionPane.showMessageDialog(null, "Error al realizar pedido");
@@ -140,6 +141,25 @@ public class ControladorImp extends Controlador{
 			}
 
 			break ; 
+		}
+		case(Eventos.AÑADIR_INGREDIENTES):{
+			HashMap<String, String> ids = (HashMap<String, String>) datos;
+			String nombre = new String(ids.get("nombre"));
+			int calorías = Integer.getInteger(ids.get("calorías"));
+			int i = devolverLista("ingredientes",false).size() ; 
+			
+			TransferProducto ing = new TransferProducto() ; 
+			ing.setCalorias(calorías);
+			ing.setNombre(nombre);
+			ing.setId(i);
+
+			
+			SAProductos saProductos = FactoriaSA.getInstancia().nuevoSAProducto();
+	
+			if(saProductos.crearProducto(ing)) {
+				i++ ; 
+			}
+			
 		}
 
 		default: {

@@ -1,10 +1,6 @@
 package integración;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,169 +8,56 @@ import Negocio.TransferProducto;
 
 public class DAOProductosImp implements DAOProductos {
 
+
 	@Override
 	public TransferProducto buscarProducto(String nombre) {
-
-		TransferProducto tP = new TransferProducto();
-	    String url = "jdbc:mysql://localhost:3306/smoothies";
-	    String usuario = "root";
-	    String contraseña2 = "contraseñaSQL";
+		String tP = BDProductos.buscarProducto(nombre) ; 
+		if(tP!=null) {
+			String info[] = tP.split(",");
+			return new TransferProducto(info[0],Integer.parseInt(info[1]),Integer.parseInt(info[2]), Boolean.parseBoolean(info[3]));
+		}
 		
-	    try {
-	    	// Registrar el driver de MySQL
-	        Class.forName("com.mysql.cj.jdbc.Driver");
-	        // Conectar a la base de datos
-	        try (Connection conexion = DriverManager.getConnection(url, usuario, contraseña2)) {
-	            String query = "SELECT * FROM ingredientes WHERE nombre = ? ";
-	            PreparedStatement stmt = conexion.prepareStatement(query);
-	            stmt.setString(1, nombre);
-	            ResultSet rs = stmt.executeQuery();
-	            if (rs.next()) {
-	            	tP.setNombre(rs.getString("nombre"));
-	            	tP.setCalorias(rs.getInt("calorias"));
-	            	tP.setId(rs.getInt("id"));
-	            	tP.setDisp(rs.getBoolean("disponibilidad"));
-
-	                return tP;
-	            } else {
-	                return null;
-	            }
-	        }
-	    } catch (ClassNotFoundException e) {
-	        System.out.println("Error: no se pudo cargar el driver de MySQL");
-	        e.printStackTrace();
-	    } catch (SQLException e) {
-	        System.out.println("Error al conectar a la base de datos MySQL");
-	        e.printStackTrace();
-	    }
-	    return tP;
+		return null  ; 
+		
+	  
 	}
 
 	@Override
-	public boolean añadirProducto(String nombre, int id, int calorias) {
-
-		TransferProducto tP = this.buscarProducto(nombre);
-	    String url = "jdbc:mysql://localhost:3306/smoothies";
-	    String usuario = "root";
-	    String contraseña2 = "contraseñaSQL";
-		
-	     // significa que el cliente no existe
-	        try {
-	            // Registrar el driver de MySQL
-	            Class.forName("com.mysql.cj.jdbc.Driver");
-	             
-	            // Conectar a la base de datos
-	            try (Connection conexion = DriverManager.getConnection(url, usuario, contraseña2)) {
-	            	String query  ; 
-	            	 PreparedStatement stmt = null ;
-	            	
-	            	 if (tP == null) { 
-	            		 
-	                query = "INSERT INTO ingredientes (nombre ,id, calorias,disponibilidad) VALUES (?, ?, ?, ?)";
-	                stmt = conexion.prepareStatement(query);
-	                stmt.setString(1, nombre);
-	                stmt.setInt(2, id);
-	                stmt.setInt(3, calorias);
-	                stmt.setBoolean(4, true);}
-	            	 else if(!tP.getDisp()) {
-	            		 query = "UPDATE ingredientes SET disponibilidad = 0 WHERE nombre = ? "  ; 
-	            		 stmt = conexion.prepareStatement(query);
-	 	                 stmt.setString(1, nombre);
-	 	                 tP.setDisp(true);
-	                }
-
-	                
-	                
-	                int resultado = stmt.executeUpdate();
-	                if (resultado > 0) {
-	                    return true;
-	                } else {
-	                    return false;
-	                }
-	            }
-
-	        } catch (ClassNotFoundException e) {
-	            System.out.println("Error: no se pudo cargar el driver de MySQL");
-	            e.printStackTrace();
-	        } catch (SQLException e) {
-	            System.out.println("Error al conectar a la base de datos MySQL");
-	            e.printStackTrace();
-	        }
-	    
-	   
-		return false;
+	public boolean añadirProducto(TransferProducto ing ) {
+		return BDProductos.añadirProducto(ing.getNombre(), ing.getId(), ing.getCalorias(), ing.getDisp()) ; 
 	}
 
 	@Override
     public List<TransferProducto> sacarListaIngredientes(boolean especifico) {
         List<TransferProducto> listaIngredientes = new ArrayList<>();
-        String url = "jdbc:mysql://localhost:3306/smoothies";
-        String usuario = "root";
-        String contraseña2 = "contraseñaSQL";
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection conexion = DriverManager.getConnection(url, usuario, contraseña2)) {
-            	String query = "SELECT * FROM ingredientes";
-            	if(especifico) query = "SELECT * FROM ingredientes WHERE disponibilidad = 1" ; 
-                PreparedStatement stmt = conexion.prepareStatement(query);
-                ResultSet rs = stmt.executeQuery();
-                
-                while (rs.next()) {
-                    TransferProducto tP = new TransferProducto();
-                    tP.setNombre(rs.getString("nombre"));
-                    tP.setCalorias(rs.getInt("calorias"));
-                    tP.setId(rs.getInt("id"));
-                    tP.setDisp(rs.getBoolean("disponibilidad"));
-                    listaIngredientes.add(tP);
-                }
-            }
-        } catch (ClassNotFoundException e) {
-            System.out.println("Error: no se pudo cargar el driver de MySQL");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.out.println("Error al conectar a la base de datos MySQL");
-            e.printStackTrace();
-        }
+        List<String> lp = BDProductos.sacarListaIngredientes(especifico); 
+	    for(String tP : lp ) {
+	    	if(tP!= null ) {
+	    	String info[] = tP.split(",");
+	    	String nombre  = info[0] ; 
+	    	int id = Integer.parseInt(info[1]) ; 
+	    	int calorias = Integer.parseInt(info[2]) ; 
+	    	boolean disp  = Boolean.parseBoolean(info[3]) ; 
+	    	TransferProducto T = new TransferProducto(nombre, id,calorias,disp) ;
+	    	listaIngredientes.add(T) ; 
+	    	}
+	    }
         return listaIngredientes;
     }
 	@Override
 	public boolean cambiarEstado(String nombre,  boolean disponibilidad) {
+		boolean ok = false ; 
 		TransferProducto tP = this.buscarProducto(nombre) ;
-	    String url = "jdbc:mysql://localhost:3306/smoothies";
-	    String usuario = "root";
-	    String contraseña2 = "contraseñaSQL";
+		if(tP != null) {
+			ok = BDProductos.cambiarEstado(tP.getNombre(), tP.getDisp())  ; 
+			if(ok){
+				tP.cambiarDisp();
+				return ok ; 
+			} ; 
+		}
+	
 	    
-		
-	    try {
-	    	// Registrar el driver de MySQL
-	        Class.forName("com.mysql.cj.jdbc.Driver");
-	        // Conectar a la base de datos
-	        try (Connection conexion = DriverManager.getConnection(url, usuario, contraseña2)) {
-	            String query = "UPDATE ingredientes SET disponibilidad  = ? WHERE nombre = ?"  ; 
-	            PreparedStatement stmt = conexion.prepareStatement(query);
-	            stmt.setBoolean(1, disponibilidad);
-	            stmt.setString(2, nombre);
-	            
-	            
-	            int resultado = stmt.executeUpdate();
-                if (resultado > 0) {
-                	tP.cambiarDisp(); 
-                    return true;
-                } else {
-                    return false;
-                }
-	        }
-	           
-	        
-	    } catch (ClassNotFoundException e) {
-	        System.out.println("Error: no se pudo cargar el driver de MySQL");
-	        e.printStackTrace();
-	    } catch (SQLException e) {
-	        System.out.println("Error al conectar a la base de datos MySQL");
-	        e.printStackTrace();
-	    }
-	return false ; 
+		return ok ; 
 
 	}
 
