@@ -2,7 +2,7 @@ package Presentacion;
 
 public abstract class GUIClientes {
     private static GUIClientes instancia = null;
-    private static Object datos = null;
+    
     
     public static GUIClientes getInstancia(Controlador controlador, Object datos) {
         if (instancia == null)

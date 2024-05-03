@@ -33,13 +33,12 @@ import Negocio.TransferProducto;
 
 public class GUIAdministradorImp extends GUIAdministrador {
 	private Controlador cntr  ; 
-	private JPanel panel  ; 
 	private Object datos  ;
 	private int pos; 
 	private  JFrame menuFrame ; 
 	private  JFrame Frame ;
 
-	@SuppressWarnings("static-access")
+	
 	public GUIAdministradorImp(Controlador contr ) {
 		this.cntr = contr  ; 
 		
@@ -99,6 +98,7 @@ public class GUIAdministradorImp extends GUIAdministrador {
             // Mostrar la lista de pedidos en un JOptionPane
             JOptionPane.showMessageDialog(null, new JScrollPane(listaPedidosJList), "Lista de Pedidos", JOptionPane.PLAIN_MESSAGE);
         });
+        
         botonstock.addActionListener(e->{
         	 List<String> columns = new ArrayList<String>();
              List<String[]> values = new ArrayList<String[]>();
@@ -210,18 +210,17 @@ public class GUIAdministradorImp extends GUIAdministrador {
 		Ingredientes.add(new JLabel("Calorías:"));
 		Ingredientes.add(caloríasField);
        
-		String nombre = nombreField.getText();
-        String calorías = caloríasField.getText();
-       
-
-
-        // Utilizar el controlador para añadir un cliente
-        HashMap<String, String> datos = new HashMap<>();
-        datos.put("nombre", nombre);
-        datos.put("calorías", calorías);
+		
+   
         
         JButton Aceptar = new JButton("Aceptar") ; 
         Aceptar.addActionListener(e ->{
+        	String nombre = nombreField.getText();
+            String calorías = caloríasField.getText();
+         // Utilizar el controlador para añadir un cliente
+            HashMap<String, String> datos = new HashMap<>();
+            datos.put("nombre", nombre);
+            datos.put("calorías", calorías);
         	 cntr.accion(Eventos.AÑADIR_INGREDIENTES, datos);
         
         });

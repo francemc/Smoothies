@@ -134,7 +134,7 @@ public class ControladorImp extends Controlador{
 				disponibilidad = false ; 
 			}
 				
-			if(saProductos.cambiarestado(nombre,!disponibilidad)) {
+			if(saProductos.cambiarestado(nombre,disponibilidad)) {
 				JOptionPane.showMessageDialog(null, "Cambio de estado realizado con exito");
 			}else {
 				JOptionPane.showMessageDialog(null, "Error al realizar el cambio");
@@ -145,11 +145,12 @@ public class ControladorImp extends Controlador{
 		case(Eventos.AÑADIR_INGREDIENTES):{
 			HashMap<String, String> ids = (HashMap<String, String>) datos;
 			String nombre = new String(ids.get("nombre"));
-			int calorías = Integer.getInteger(ids.get("calorías"));
+			String calorías = new String(ids.get("calorías"));
 			int i = devolverLista("ingredientes",false).size() ; 
 			
 			TransferProducto ing = new TransferProducto() ; 
-			ing.setCalorias(calorías);
+			int cal =Integer.parseInt(calorías ) ;
+			ing.setCalorias(cal);
 			ing.setNombre(nombre);
 			ing.setId(i);
 

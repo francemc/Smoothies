@@ -128,7 +128,7 @@ public class BDProductos extends BD{
 	        try (Connection conexion = DriverManager.getConnection(url, usuario, contraseña2)) {
 	            String query = "UPDATE ingredientes SET disponibilidad  = ? WHERE nombre = ?"  ; 
 	            PreparedStatement stmt = conexion.prepareStatement(query);
-	            stmt.setBoolean(1, disponibilidad);
+	            stmt.setBoolean(1, !disponibilidad);
 	            stmt.setString(2, nombre);
 	            
 	            
