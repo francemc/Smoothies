@@ -18,15 +18,15 @@ public class GUIClientesImp extends GUIClientes {
 	private JButton atrasButton; // Botón de "Atrás" para acceso y registro
 	private JPanel currentPanel; // Para realizar un seguimiento del panel actual
 	private JPanel panel; // Variable de instancia para el panel principal
-	private Controlador controlador; // Agregar referencia al controlador
+	private Controlador cntr; // Agregar referencia al controlador
 
-	private TransferPedido pedido;
+	private TransferPedido ped;
 	
     public GUIClientesImp(Controlador controlador,Object datos) {
-        this.controlador = controlador;
-        this.pedido = new TransferPedido();
-        pedido.setIdUsuario(controlador.buscarIdCliente(datos));
-        pedido.setId((int) (Math.random() * 900000) + 100000);
+        this.cntr = controlador;
+        this.ped = new TransferPedido();
+        ped.setIdUsuario(controlador.buscarIdCliente(datos));
+        ped.setId((int) (Math.random() * 900000) + 100000);
      
         // Crear un nuevo JFrame para el menú
         JFrame menuFrame = new JFrame("Menú");
@@ -61,14 +61,14 @@ public class GUIClientesImp extends GUIClientes {
         
         opcion1Button.addActionListener(e -> {
 
-        	GUIMenuImp guiMenu = new GUIMenuImp(controlador,datos,pedido);
+        	GUIMenuImp guiMenu = new GUIMenuImp(cntr,datos,ped);
             //GUI Para pedir batidos
         });
 
         opcion2Button.addActionListener(e -> {
             // Lógica para Smoothies Personalizados
      	   
-     	    GUIProductosImp guiProductos = new GUIProductosImp(controlador,pedido);
+     	    GUIProductosImp guiProductos = new GUIProductosImp(cntr);
 
         });
 
@@ -114,7 +114,7 @@ public class GUIClientesImp extends GUIClientes {
             JButton cerrarCuentaButton = new JButton("Cerrar Cuenta");
 
             verPedidosButton.addActionListener(e1 -> {
-            	String idCliente = controlador.buscarIdCliente(datos);
+            	String idCliente = cntr.buscarIdCliente(datos);
                 // Obtener la lista de pedidos del usuario actual del controlador
                 Iterator<TransferPedido> listaPedidos = controlador.obtenerIteradorLista(idCliente,false); 
                 
@@ -200,7 +200,7 @@ public class GUIClientesImp extends GUIClientes {
     public void actualizar(int evento, Object datos) {
     	switch (evento) {
         	case (Eventos.VER_CARRITO): {
-        		GUICarritoImp guiCarrito = new GUICarritoImp(controlador,datos,pedido); 		
+        		GUICarritoImp guiCarrito = new GUICarritoImp(cntr,datos,ped); 		
         	break;
         	}
         }

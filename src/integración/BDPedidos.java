@@ -130,6 +130,39 @@ public class BDPedidos extends BD {
 	}
 
 
+	public static boolean eliminarPedido(String pedido) {
+		try {
+            // Registrar el driver de MySQL
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            // Conectar a la base de datos
+            try (Connection conexion = DriverManager.getConnection(url, usuario, contraseña2)) {
+            	            	
+                String query = "DELETE FROM pedidos WHERE idPedido = ? ";
+                PreparedStatement stmt = conexion.prepareStatement(query);
+                stmt.setString(1, pedido);
+              
+             
+                int i = stmt.executeUpdate();
+                if(i != 0) return true  ; 
+               
+            }
+
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: no se pudo cargar el driver de MySQL");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println("Error al conectar a la base de datos MySQL");
+            e.printStackTrace();
+        }
+		return false;
+	
+	
+
+		
+	}
+
+
 	
 	
 

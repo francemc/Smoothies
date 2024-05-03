@@ -24,8 +24,8 @@ public class GUISmoothiesImp extends GUISmoothies {
 	private JPanel panel; // Variable de instancia para el panel principal
 	private Controlador cntr; // Agregar referencia al controlador
 
-	public GUISmoothiesImp(Controlador cntr) {
-		this.cntr = cntr;
+	public GUISmoothiesImp(Controlador controlador) {
+		this.cntr = controlador;
 
         // Crear la ventana principal
         loginFrame = new JFrame("SMOOTHIES");

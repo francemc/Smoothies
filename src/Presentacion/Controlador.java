@@ -17,5 +17,7 @@ public abstract class Controlador {
 	public abstract void accion(int evento, Object datos);
 	protected abstract <T>List<T> devolverLista(String producto,boolean especifico); //programación genérica
 	public abstract String buscarIdCliente(Object datos);
-	public abstract <T> Iterator<T> obtenerIteradorLista(String producto, boolean especifico) ; 
+	public abstract <T> Iterator<T> obtenerIteradorLista(String producto, boolean especifico) ;
+
+	public abstract boolean eliminarPedido(String pedido)  ; 
 }

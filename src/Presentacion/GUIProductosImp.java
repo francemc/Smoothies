@@ -15,21 +15,21 @@ import java.util.List;
 
 public class GUIProductosImp extends GUIProductos {
 
-    private Controlador controlador;
+    private Controlador cntr;
     private JFrame menuFrame;
     
     private JLabel totalUnidadesLabel;
     private int totalUnidades;
-    private TransferPedido pedido;
+    private TransferPedido ped;
 
 
-    public GUIProductosImp(Controlador controlador, TransferPedido pedido) {
-        this.pedido = new TransferPedido() ; 
+    public GUIProductosImp(Controlador controlador) {
+        this.ped = new TransferPedido() ; 
 
-        this.controlador = controlador;
+        this.cntr = controlador;
         
         this.totalUnidades = 0;
-        Iterator<TransferProducto> it = controlador.obtenerIteradorLista("ingredientes", true) ;
+        Iterator<TransferProducto> it = cntr.obtenerIteradorLista("ingredientes", true) ;
         // Obtener la lista de ingredientes desde el controlador
         
         
@@ -232,16 +232,16 @@ public class GUIProductosImp extends GUIProductos {
                         String producto = "1-" + selectedSize + "-" + selectedMilk + "(" + ingredientesString + ")";
                         
                         
-                        pedido.agregarProducto(producto);
+                        ped.agregarProducto(producto);
                         
                         if(selectedSize == "Pequeño") {
-                        	pedido.sumarBatido(4);
+                        	ped.sumarBatido(4);
                         }
                         else if(selectedSize == "Mediano") {
-                        	pedido.sumarBatido(5);
+                        	ped.sumarBatido(5);
                         }
                         else {
-                        	pedido.sumarBatido(6);
+                        	ped.sumarBatido(6);
                         }
                         
                         menuFrame.dispose();

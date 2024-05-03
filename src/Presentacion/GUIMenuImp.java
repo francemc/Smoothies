@@ -13,19 +13,19 @@ import java.util.Iterator;
 import java.util.List;
 
 public class GUIMenuImp extends GUIMenu {
-    private Controlador controlador;
+    private Controlador cntr;
     private JFrame menuFrame;
     private List<TransferSmoothies> listaSmoothies;
     private DefaultListModel<String> smoothiesListModel;
     private JList<String> smoothiesList;
-    private TransferPedido pedido;
+    private TransferPedido ped;
     private JComboBox<String> sizeComboBox; // Declaración del JComboBox
 
     public GUIMenuImp(Controlador controlador, Object datos,TransferPedido pedido) {
-        this.pedido = pedido; 
-        this.controlador = controlador;
+        this.ped = pedido; 
+        this.cntr = controlador;
         this.listaSmoothies = new ArrayList<>();
-        Iterator<TransferSmoothies> it = controlador.obtenerIteradorLista("smoothies",false);
+        Iterator<TransferSmoothies> it = cntr.obtenerIteradorLista("smoothies",false);
         smoothiesListModel = new DefaultListModel<>();
         while(it.hasNext()) {
         	TransferSmoothies smoothie = it.next() ; 
@@ -75,20 +75,20 @@ public class GUIMenuImp extends GUIMenu {
                     // Primero, necesitas obtener el ID del smoothie seleccionado
                     int smoothieIndex = smoothiesList.getSelectedIndex();
                     TransferSmoothies smoothie = listaSmoothies.get(smoothieIndex);
-                    int smoothieID = smoothie.getId(); // Suponiendo que TransferSmoothies tenga un método para obtener el ID
+                    String smoothieID = smoothie.getNombre(); // Suponiendo que TransferSmoothies tenga un método para obtener el ID
 
                     // Crear el string que representa el producto en el carrito
-                    String producto = "0-" + selectedSize+ "-"+ smoothieID; // Concatenar los valores para crear el producto
+                    String producto = "0-" + selectedSize+ "-"+ smoothieID ; // Concatenar los valores para crear el producto
 
                     // Luego, puedes llamar al método para agregar el smoothie al carrito
-                    pedido.agregarProducto(producto);
+                    ped.agregarProducto(producto);
 
                     if(selectedSize == "Pequeño") {
-                    	pedido.sumarBatido(4);
+                    	ped.sumarBatido(4);
                     }else if(selectedSize == "Mediano") {
-                    	pedido.sumarBatido(5);
+                    	ped.sumarBatido(5);
                     }else {
-                    	pedido.sumarBatido(6);
+                    	ped.sumarBatido(6);
                     }
                     
                     JOptionPane.showMessageDialog(menuFrame, "Smoothie '" + smoothie.getNombre() + "' añadido al carrito.");
@@ -143,7 +143,7 @@ public class GUIMenuImp extends GUIMenu {
     public void actualizar(int evento, Object datos) {
         switch (evento) {
             case (Eventos.VER_CARRITO): {
-                GUICarritoImp guiCarrito = new GUICarritoImp(controlador, datos,pedido);
+                GUICarritoImp guiCarrito = new GUICarritoImp(cntr, datos,ped);
                 break;
             }
         }

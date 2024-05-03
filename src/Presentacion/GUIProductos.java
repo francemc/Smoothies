@@ -8,7 +8,7 @@ public abstract class GUIProductos {
 	
 	public static GUIProductos getInstancia(Controlador controlador,TransferPedido pedido) {
 		if(instancia == null) 
-			instancia = new GUIProductosImp(controlador,pedido);
+			instancia = new GUIProductosImp(controlador);
 		return instancia;
 	}
 	

@@ -21,11 +21,7 @@ public class SAPedidosImp implements SAPedidos{
 		return ok;
 	}
 
-	@Override
-	public boolean buscarPedido(int idPedido) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 
 	@Override
 	public List<TransferPedido> listaPedidos(String idUsuario) {
@@ -52,6 +48,15 @@ public class SAPedidosImp implements SAPedidos{
 			 e.printStackTrace();
 		}
 		return listaPedidos;
+	}
+
+
+
+	@Override
+	public boolean eliminarPedido(String pedido) {
+		
+		DAOPedidos daoPedidos = (DAOPedidos) FactoriaDAO.getInstancia().nuevoDAOPedidos();
+		return daoPedidos.eliminarPedido(pedido) ; 
 	}
 
 }

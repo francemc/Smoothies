@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GUICarritoImp extends GUICarrito {
-    private Controlador controlador;
+    private Controlador cntr;
     private JFrame carritoFrame;
     private JPanel panel;
     private JTextField totalField;
@@ -17,7 +17,7 @@ public class GUICarritoImp extends GUICarrito {
     private TransferPedido ped ; 
 
     public GUICarritoImp(Controlador controlador, Object datos, TransferPedido pedido) {
-        this.controlador = controlador;
+        this.cntr = controlador;
         this.ped =  pedido ; 
      
         
@@ -87,7 +87,7 @@ public class GUICarritoImp extends GUICarrito {
         JButton tramitarButton = new JButton("Tramitar");
         tramitarButton.addActionListener(e -> {
                	
-        	controlador.accion(Eventos.CREAR_PEDIDO, ped);       	
+        	cntr.accion(Eventos.CREAR_PEDIDO, ped);       	
             System.exit(0);
         });
 

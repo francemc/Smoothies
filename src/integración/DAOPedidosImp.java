@@ -56,6 +56,12 @@ public class DAOPedidosImp implements DAOPedidos{
 	    return listaPedidos;
 	}
 
+	@Override
+	public boolean eliminarPedido(String pedido) {
+		return BDPedidos.eliminarPedido(pedido) ; 
+		
+	}
+
 	
 	
 

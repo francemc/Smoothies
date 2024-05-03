@@ -195,7 +195,7 @@ protected <T>List<T> devolverLista(String producto,boolean especifico){
 			List<TransferPedido> listaPedidos = saPedidos.listaTodosPedidos();
 			return (List<T>) listaPedidos;
 		}
-		else{ //ESTO ES UN APAÑO HABRÍA QUE BUSCAR OTRA FORMA // PRODUCTO --> ID_USUARIO
+		else{ 
 			SAPedidos saPedidos = new SAPedidosImp();
 			List<TransferPedido> listaPedidos = saPedidos.listaPedidos(producto);
 			
@@ -210,6 +210,17 @@ protected <T>List<T> devolverLista(String producto,boolean especifico){
 		
 		SAClientes saClientes = FactoriaSA.getInstancia().nuevoSAClientes();
 		return saClientes.buscarIdUsuario(correo, contraseña);
+	}
+	@Override
+	public boolean  eliminarPedido(String pedido) {
+		String[] parts = pedido.split("-");
+		String ipedido = parts[0];
+		String[] parts1 = ipedido.split(":");
+		String idpedido = parts1[1];
+		SAPedidos  saPedidos = FactoriaSA.getInstancia().nuevoSAPedidos() ; 
+		return saPedidos.eliminarPedido(idpedido) ; 
+		
+		
 	}
 
 

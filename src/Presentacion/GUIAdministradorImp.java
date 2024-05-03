@@ -2,6 +2,7 @@ package Presentacion;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.DefaultCellEditor;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
@@ -22,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -79,30 +82,57 @@ public class GUIAdministradorImp extends GUIAdministrador {
 
         botonPedidos.addActionListener(e -> {
             // Obtener la lista de pedidos del controlador
-        	 Iterator<TransferPedido> listaPedidos = contr.obtenerIteradorLista("pedidos",false);
+        	 Iterator<TransferPedido> listaPedidos = cntr.obtenerIteradorLista("pedidos",false);
           	
-            // Crear un arreglo de strings para almacenar la representación de los pedidos
-            String[] pedidosArray = new String[100];
-            int i = 0  ; 
+        	 DefaultListModel<String> pedListModel = new DefaultListModel<>();
+             JList<String> listaPedidosJList = new JList<>(pedListModel) ; 
+             listaPedidosJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+             JScrollPane scrollPane = new JScrollPane(listaPedidosJList);
+             scrollPane.setPreferredSize(new Dimension(200, 200));
+             
             while(listaPedidos.hasNext()) {
                 TransferPedido pedido = listaPedidos.next();
                 // Formatear la representación del pedido como desees
                 String pedidoStr = "ID: " + pedido.getIdPedido() + " - Batidos: " + pedido.getBatidos();
-                pedidosArray[i] = pedidoStr;
-                i++ ; 
+                pedListModel.addElement(pedidoStr);
+              
             }
             
-            // Crear una JList con los pedidos
-            JList<String> listaPedidosJList = new JList<>(pedidosArray);
+         
+
+  
+            Frame = new JFrame () ;
+            Frame.setSize(550, 400); // Tamaño del menú
+            Frame.setLocationRelativeTo(null);
+            JPanel jp = new JPanel() ; 
+            jp.add(listaPedidosJList) ; 
+            JButton listoButton = new JButton("Hecho");
+            listoButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int selectedIndex = listaPedidosJList.getSelectedIndex();
+                    if (selectedIndex != -1) {
+                        if(cntr.eliminarPedido(pedListModel.elementAt(selectedIndex)))  pedListModel.remove(selectedIndex);
+                        
+                 
+                    }
+                }
+            });
             
-            // Mostrar la lista de pedidos en un JOptionPane
-            JOptionPane.showMessageDialog(null, new JScrollPane(listaPedidosJList), "Lista de Pedidos", JOptionPane.PLAIN_MESSAGE);
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.add(listoButton);
+
+            Frame.getContentPane().setLayout(new BorderLayout());
+            Frame.getContentPane().add(jp, BorderLayout.CENTER);
+           Frame. getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+            Frame.setVisible(true) ; 
+           
         });
         
         botonstock.addActionListener(e->{
         	 List<String> columns = new ArrayList<String>();
              List<String[]> values = new ArrayList<String[]>();
-             Iterator<TransferProducto> listaIngredientes = contr.obtenerIteradorLista("ingredientes",false);
+             Iterator<TransferProducto> listaIngredientes = cntr.obtenerIteradorLista("ingredientes",false);
          	
              columns.add("Ingrediente");
              columns.add("Estado");
