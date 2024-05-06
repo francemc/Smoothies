@@ -68,7 +68,7 @@ public class GUIClientesImp extends GUIClientes {
         opcion2Button.addActionListener(e -> {
             // Lógica para Smoothies Personalizados
      	   
-     	    GUIProductosImp guiProductos = new GUIProductosImp(cntr);
+     	    GUIProductosImp guiProductos = new GUIProductosImp(cntr,ped);
 
         });
 

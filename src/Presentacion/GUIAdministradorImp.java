@@ -209,7 +209,7 @@ public class GUIAdministradorImp extends GUIAdministrador {
        
         Ingrediente.addActionListener( e ->{
         	JFrame Frame1 = new JFrame() ; 
-        	JPanel accion  = mostrarPanelIngredientes() ; 
+        	JPanel accion  = mostrarPanelIngredientes(Frame1) ; 
         	Frame1.add(accion) ; 
         	
         	Frame1.setSize(300, 150);
@@ -229,7 +229,7 @@ public class GUIAdministradorImp extends GUIAdministrador {
         return jp ; 
 	}
 
-	private JPanel mostrarPanelIngredientes() {
+	private JPanel mostrarPanelIngredientes(JFrame frame2) {
 		JPanel Ingredientes = new JPanel() ; 
 		
 		JTextField nombreField = new JTextField(20);
@@ -252,6 +252,8 @@ public class GUIAdministradorImp extends GUIAdministrador {
             datos.put("nombre", nombre);
             datos.put("calorías", calorías);
         	 cntr.accion(Eventos.AÑADIR_INGREDIENTES, datos);
+        	 frame2.setVisible(false) ;
+        	 
         
         });
       

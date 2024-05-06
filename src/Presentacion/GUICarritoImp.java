@@ -44,13 +44,16 @@ public class GUICarritoImp extends GUICarrito {
         productosList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollPane = new JScrollPane(productosList);
         scrollPane.setPreferredSize(new Dimension(200, 200));
+    
 
         // Mostrar cada producto en la lista
         String productosStr = ped.getBatidos();
 	        if(productosStr != null ) {
-	        	String[] productos = productosStr.split(",");
+	        	String[] productos = productosStr.split("/");
 	        for (String producto : productos) {
+	        	
 	            productosListModel.addElement(producto);
+	           
         }
         }
 

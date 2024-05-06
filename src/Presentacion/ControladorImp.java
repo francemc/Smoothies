@@ -159,7 +159,12 @@ public class ControladorImp extends Controlador{
 	
 			if(saProductos.crearProducto(ing)) {
 				i++ ; 
+				JOptionPane.showMessageDialog(null, "Ingrediente creado correctamente");
 			}
+			else {
+				JOptionPane.showMessageDialog(null, "Este producto ya existe");
+			}
+			break ; 
 			
 		}
 

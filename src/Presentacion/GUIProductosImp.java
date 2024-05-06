@@ -23,8 +23,8 @@ public class GUIProductosImp extends GUIProductos {
     private TransferPedido ped;
 
 
-    public GUIProductosImp(Controlador controlador) {
-        this.ped = new TransferPedido() ; 
+    public GUIProductosImp(Controlador controlador, TransferPedido pedido) {
+        this.ped = pedido ; 
 
         this.cntr = controlador;
         
