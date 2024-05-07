@@ -23,7 +23,8 @@ public class DAOClientesImp implements DAOCliente{
 	@Override
 	public boolean registrarCliente(TransferCliente cliente) throws NoSuchAlgorithmException {
 		if(buscarCliente(cliente.getCorreo()) == null) {
-			return BDCliente.registrar(cliente.getId(),cliente.getNombre() ,cliente.getCorreo(),cliente.getContraseña());
+			return BDCliente.registrar(cliente.getId(),cliente.getNombre() ,cliente.getCorreo(),
+					cliente.getContraseña());
 		}else {
 			return false ; 
 		}

@@ -26,12 +26,7 @@ public class ControladorImp extends Controlador{
 	public void accion(int evento, Object datos) {
 		
 		switch (evento) {
-		case (Eventos.CAMPOS_VACIOS): {
-			JOptionPane.showMessageDialog(null, "Alg�n campo est� vacio");
-			GUISmoothies.getInstancia(Controlador.getInstancia()).actualizar(Eventos.CLIENTES_LIMPIAR, null);
-		}
-		
-		
+	
 		case (Eventos.AÑADIR_CLIENTE):{
 			HashMap<String, String> ids = (HashMap<String, String>) datos;
 			String nombre = new String(ids.get("nombre"));
@@ -65,7 +60,13 @@ public class ControladorImp extends Controlador{
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Error al cargar el usuario");
+				break ; 
 			}
+		}
+		case (Eventos.CAMPOS_VACIOS): {
+			JOptionPane.showMessageDialog(null, "Alg�n campo est� vacio");
+			GUISmoothies.getInstancia(Controlador.getInstancia()).actualizar(Eventos.CLIENTES_LIMPIAR, null);
+			break ; 
 		}
 		
 		case (Eventos.INICIAR_ADMINISTRADOR):{
@@ -94,6 +95,7 @@ public class ControladorImp extends Controlador{
 			TransferCliente cliente = new TransferCliente(null, null, correo , contraseña) ; 
 			if(saClientes.borrarCliente(cliente)) {
 				JOptionPane.showMessageDialog(null, "Eliminado con exito");
+			
 			}else {
 				JOptionPane.showMessageDialog(null, "Error al eliminar el usuario");
 

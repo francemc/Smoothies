@@ -23,7 +23,8 @@ public class BDCliente extends BD{
 		            stmt.setString(1, correo);
 		            ResultSet rs = stmt.executeQuery();
 		            if (rs.next()) {
-		            	tE = rs.getString("idUsuario")+","+rs.getString("nombre")+","+rs.getString("correo")+","+rs.getString("password") ;	
+		            	tE = rs.getString("idUsuario")+","+rs.getString("nombre")+","+rs.getString("correo")
+		            	+","+rs.getString("password") ;	
 		                return tE;
 		            } 
 		        }
@@ -46,7 +47,8 @@ public class BDCliente extends BD{
 	            // Conectar a la base de datos
 	            try (Connection conexion = DriverManager.getConnection(url, usuario, contraseña2)) {
 	            	            	
-	                String query = "INSERT INTO usuario (idUsuario ,nombre, correo, password) VALUES (?, ?, ?, ?)";
+	                String query = "INSERT INTO usuario (idUsuario ,nombre, correo, password) "
+	                		+ "VALUES (?, ?, ?, ?)";
 	                PreparedStatement stmt = conexion.prepareStatement(query);
 	                stmt.setString(1, id);
 	                stmt.setString(2, nombre);
