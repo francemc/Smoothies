@@ -184,20 +184,7 @@ public class GUISmoothiesImp extends GUISmoothies {
 
     @Override
     public void actualizar(int evento, Object datos) {
-        switch (evento) {
-        case (Eventos.AÑADIR_CLIENTE): {
-        	GUIClientesImp guiClientes = new GUIClientesImp(cntr,datos);
-            break;
-        }
-        case (Eventos.CLIENTE_REGISTRADO):{
-        	//GUIAdministradorImp guiAdmin = new GUIAdministradorImp(cntr);     	
-        	GUIClientesImp guiClientes = new GUIClientesImp(cntr,datos);
-           break;          
-        }
-        case (Eventos.INICIAR_ADMINISTRADOR):{
-        	GUIAdministradorImp guiAdministrador = new GUIAdministradorImp(cntr);
-        }
-    }
+       
 
     }
 }

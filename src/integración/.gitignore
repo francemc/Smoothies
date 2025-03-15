@@ -1,0 +1,15 @@
+/BD.class
+/BDCliente.class
+/BDPedidos.class
+/BDProductos.class
+/BDSmoothies.class
+/DAOCliente.class
+/DAOClientesImp.class
+/DAOPedidos.class
+/DAOPedidosImp.class
+/DAOProductos.class
+/DAOProductosImp.class
+/DAOSmoothies.class
+/DAOSmoothiesImp.class
+/FactoriaDAO.class
+/FactoriaDAOImp.class

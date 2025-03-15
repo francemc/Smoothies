@@ -43,6 +43,7 @@ public class GUIAdministradorImp extends GUIAdministrador {
 
 	
 	public GUIAdministradorImp(Controlador contr ) {
+		
 		this.cntr = contr  ; 
 		
 		

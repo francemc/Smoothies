@@ -28,8 +28,7 @@ public class ControladorImp extends Controlador{
 		switch (evento) {
 		case (Eventos.CAMPOS_VACIOS): {
 			JOptionPane.showMessageDialog(null, "Alg�n campo est� vacio");
-			GUISmoothies.getInstancia(Controlador.getInstancia()).actualizar(Eventos.CLIENTES_LIMPIAR, null);
-		}
+			}
 		
 		
 		case (Eventos.AÑADIR_CLIENTE):{
@@ -69,7 +68,11 @@ public class ControladorImp extends Controlador{
 		}
 		
 		case (Eventos.INICIAR_ADMINISTRADOR):{
-			GUIAdministrador.getInstancia(Controlador.getInstancia()).actualizar(Eventos.INICIAR_ADMINISTRADOR, datos);
+			HashMap<String, String> ids = (HashMap<String, String>) datos;
+			String correo = new String(ids.get("correo"));
+			String contraseña = new String(ids.get("contraseña"));
+			if(correo.equals("administrador")  && contraseña.equals("secreta"))
+				GUIAdministrador.getInstancia(Controlador.getInstancia()).actualizar(Eventos.INICIAR_ADMINISTRADOR, datos);
 			break ; 
 		}
 		
